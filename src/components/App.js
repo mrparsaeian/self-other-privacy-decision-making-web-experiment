@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, Fragment } from "react";
 import { BrowserRouter } from "react-router-dom";
 // import { Redirect, Switch, Route, withRouter } from "react-router";
 import { Redirect, Switch, withRouter, Router, Route } from "react-router-dom";
-
+import Fullscreen from "react-fullscreen-crossbrowser";
 // import StreamCreate from "./rotation/StreamCreate";
 // import StreamEdit from "./rotation/StreamEdit";
 // import StreamDelete from "./rotation/StreamDelete";
@@ -16,6 +16,7 @@ import HomePage from "./rotation/HomePage";
 // import SurveyLanding from "./survey/surveylanding";
 import Landing from "./initialization/landing";
 // import SpinResults from "./survey/spinResults";
+import Authentication from "./authentication/Authentication";
 import DemographicAndQualityOfLife from "./survey/demographicandqualityoflife";
 import DTriad from "./survey/dtriad";
 import NonPIIDisClosure from "./survey/nonpiidisclosure";
@@ -25,46 +26,13 @@ import AuctionGameMedianPrice from "./games/AuctionGameMedianPrice/AuctionGameMe
 import OntoTrustedGame from "./games/OntoTrusterGame/OntoTrusterGame";
 import UponTrustedGame from "./games/UponTrusteeGame/UponTrusteeGame";
 import history from "../history";
-
-const useFull = (el) => {
-  const [full, setFull] = useState(false);
-  const revert = () => {
-    if (!document.fullscreenElement) {
-      setFull(false);
-      document.removeEventListener("fullscreenchange", revert);
-    }
-  };
-  useEffect(() => {
-    if (full) {
-      const elem = el.current;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-        document.addEventListener("fullscreenchange", revert);
-      } else if (elem.webkitRequestFullscreen) {
-        /* Safari */
-        elem.webkitRequestFullscreen();
-        document.addEventListener("fullscreenchange", revert);
-      } else if (elem.msRequestFullscreen) {
-        /* IE11 */
-        elem.msRequestFullscreen();
-        document.addEventListener("fullscreenchange", revert);
-      }
-    }
-    return () => {
-      document.removeEventListener("fullscreenchange", revert);
-    };
-  }, [full]);
-  return [full, setFull];
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const componentRef = useRef(null);
-    const [full, setFull] = useFull(componentRef);
-    //   // Store the previous pathname and search strings
-    //   this.currentPathname = null;
-    //   this.currentSearch = null;
+    this.handleFullScreenInParent.bind(this);
+    this.state = {
+      isFullscreenEnabled: false,
+    };
   }
   // const history = createBrowserHistory({ basename: 'process.env.PUBLIC_URL' });
 
@@ -95,41 +63,66 @@ class App extends React.Component {
     //   }
     // });
   }
+  handleFullScreenInParent() {
+    this.setState({ isFullscreenEnabled: true });
+  }
   render() {
     return (
       <Router history={history} ref={this.componentRef}>
         {/* <Router> */}
         {/* <BrowserRouter> */}
         {/* <Switch> */}
-        <div className="ui container">
-          {/* <div> */}
-          <div>
-            {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
-            {/* <Route path="/hp" component={HomePage} /> */}
-            <Route exact path="/" component={HomePage} />
-            {/* <Route
+        {/* <button onClick={() => this.setState({isFullscreenEnabled: true})}>
+          Go Fullscreen
+        </button> */}
+        <Fullscreen
+          enabled={this.state.isFullscreenEnabled}
+          onChange={(isFullscreenEnabled) =>
+            this.setState({ isFullscreenEnabled })
+          }
+        >
+          <div className="ui container">
+            {/* <div> */}
+            <div>
+              {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
+              {/* <Route path="/hp" component={HomePage} /> */}
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Authentication
+                    handleFullScreenInParent={this.handleFullScreenInParent.bind(
+                      this
+                    )}
+                    {...props}
+                  ></Authentication>
+                )}
+              />
+              {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}
+              {/* <Route
                 path="/landing/:id?/:samplingsourcetype?"
                 exact
                 component={Landing}
               /> */}
-            <Route path="/dtr/:id" exact component={DTriad} />
-            <Route path="/agfp/:id" exact component={AuctionGameFreePrice} />
-            <Route path="/agmp/:id" exact component={AuctionGameMedianPrice} />
-            <Route
-              path="/uponteeg/:id"
-              exact
-              component={UponTrustedGame}
-            />{" "}
-            <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />{" "}
-            <Route
-              path="/dandqol/:id"
-              exact
-              component={DemographicAndQualityOfLife}
-            />
-            <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
-            <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+              <Route path="/dtr/:id" exact component={DTriad} />
+              <Route path="/agfp/:id" exact component={AuctionGameFreePrice} />
+              <Route
+                path="/agmp/:id"
+                exact
+                component={AuctionGameMedianPrice}
+              />
+              <Route path="/uponteeg/:id" exact component={UponTrustedGame} />{" "}
+              <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />{" "}
+              <Route
+                path="/dandqol/:id"
+                exact
+                component={DemographicAndQualityOfLife}
+              />
+              <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
+              <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+            </div>
           </div>
-        </div>
+        </Fullscreen>
         {/* </Switch> */}
         {/* </BrowserRouter> */}
       </Router>
