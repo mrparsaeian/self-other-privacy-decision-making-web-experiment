@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/spsrvy/static/css/main.d2aad591.chunk.css",
+    "main.js": "/spsrvy/static/js/main.6b97fe5c.chunk.js",
+    "main.js.map": "/spsrvy/static/js/main.6b97fe5c.chunk.js.map",
+    "runtime-main.js": "/spsrvy/static/js/runtime-main.234d7527.js",
+    "runtime-main.js.map": "/spsrvy/static/js/runtime-main.234d7527.js.map",
+    "static/css/2.d7b4ee52.chunk.css": "/spsrvy/static/css/2.d7b4ee52.chunk.css",
+    "static/js/2.75f05107.chunk.js": "/spsrvy/static/js/2.75f05107.chunk.js",
+    "static/js/2.75f05107.chunk.js.map": "/spsrvy/static/js/2.75f05107.chunk.js.map",
+    "index.html": "/spsrvy/index.html",
+    "precache-manifest.d73d44d5ef4562177b455b696833ce56.js": "/spsrvy/precache-manifest.d73d44d5ef4562177b455b696833ce56.js",
+    "service-worker.js": "/spsrvy/service-worker.js",
+    "static/css/2.d7b4ee52.chunk.css.map": "/spsrvy/static/css/2.d7b4ee52.chunk.css.map",
+    "static/css/main.d2aad591.chunk.css.map": "/spsrvy/static/css/main.d2aad591.chunk.css.map",
+    "static/js/2.75f05107.chunk.js.LICENSE.txt": "/spsrvy/static/js/2.75f05107.chunk.js.LICENSE.txt",
+    "static/media/testmap.png": "/spsrvy/static/media/testmap.51692e33.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.234d7527.js",
+    "static/css/2.d7b4ee52.chunk.css",
+    "static/js/2.75f05107.chunk.js",
+    "static/css/main.d2aad591.chunk.css",
+    "static/js/main.6b97fe5c.chunk.js"
+  ]
+}
