@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 // import { Redirect, Switch, Route, withRouter } from "react-router";
 import { Redirect, Switch, withRouter, Router, Route } from "react-router-dom";
 import Fullscreen from "react-fullscreen-crossbrowser";
+import { ContextModalProps, ModalsProvider, useModals } from "@mantine/modals";
+import { Text, Button, TextInput } from "@mantine/core";
 // import StreamCreate from "./rotation/StreamCreate";
 // import StreamEdit from "./rotation/StreamEdit";
 // import StreamDelete from "./rotation/StreamDelete";
@@ -30,6 +32,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleFullScreenInParent.bind(this);
+    this.handleFullScreenChangeEvent.bind(this);
     this.state = {
       isFullscreenEnabled: false,
     };
@@ -63,69 +66,114 @@ class App extends React.Component {
     //   }
     // });
   }
-  handleFullScreenInParent() {
+  handleFullScreenInParent = () => {
     this.setState({ isFullscreenEnabled: true });
-  }
+  };
+  handleFullScreenChangeEvent = (isFullscreenEnabled) => {
+    this.setState({ isFullscreenEnabled });
+    if (!isFullscreenEnabled) {
+      console.log("Exited from full Screen");
+      this.openMultiStepModalExitFullScreen();
+    }
+  };
+  modals = useModals();
+  openMultiStepModalExitFullScreen = () =>
+    this.modals.openConfirmModal({
+      title: "Please confirm your action",
+      closeOnConfirm: false,
+      labels: { confirm: "Next modal", cancel: "Close modal" },
+      children: (
+        <Text size="sm">
+          This action is so important that you are required to confirm it with a
+          modal. Please click one of these buttons to proceed.
+        </Text>
+      ),
+      onConfirm: () =>
+        this.modals.openConfirmModal({
+          title: "This is modal at second layer",
+          labels: { confirm: "Close modal", cancel: "Back" },
+          closeOnConfirm: false,
+          children: (
+            <Text size="sm">
+              When this modal is closed modals state will revert to first modal
+            </Text>
+          ),
+          onConfirm: () => this.modals.closeAll(),
+        }),
+    });
   render() {
     return (
-      <Router history={history} ref={this.componentRef}>
-        {/* <Router> */}
-        {/* <BrowserRouter> */}
-        {/* <Switch> */}
-        {/* <button onClick={() => this.setState({isFullscreenEnabled: true})}>
+      <ModalsProvider
+        modals={{
+          demonstration:
+            this.openMultiStepModalExitFullScreen /* ...other modals */,
+        }}
+      >
+        <Router history={history} ref={this.componentRef}>
+          {/* <Router> */}
+          {/* <BrowserRouter> */}
+          {/* <Switch> */}
+          {/* <button onClick={() => this.setState({isFullscreenEnabled: true})}>
           Go Fullscreen
         </button> */}
-        <Fullscreen
-          enabled={this.state.isFullscreenEnabled}
-          onChange={(isFullscreenEnabled) =>
-            this.setState({ isFullscreenEnabled })
-          }
-        >
-          <div className="ui container">
-            {/* <div> */}
-            <div>
-              {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
-              {/* <Route path="/hp" component={HomePage} /> */}
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <Authentication
-                    handleFullScreenInParent={this.handleFullScreenInParent.bind(
-                      this
-                    )}
-                    {...props}
-                  ></Authentication>
-                )}
-              />
-              {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}
-              {/* <Route
+          <Fullscreen
+            enabled={this.state.isFullscreenEnabled}
+            onChange={this.handleFullScreenChangeEvent}
+          >
+            <div className="ui container">
+              {/* <div> */}
+              <div>
+                {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
+                {/* <Route path="/hp" component={HomePage} /> */}
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <Authentication
+                      handleFullScreenInParent={this.handleFullScreenInParent.bind(
+                        this
+                      )}
+                      {...props}
+                    ></Authentication>
+                  )}
+                />
+                {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}
+                {/* <Route
                 path="/landing/:id?/:samplingsourcetype?"
                 exact
                 component={Landing}
               /> */}
-              <Route path="/dtr/:id" exact component={DTriad} />
-              <Route path="/agfp/:id" exact component={AuctionGameFreePrice} />
-              <Route
-                path="/agmp/:id"
-                exact
-                component={AuctionGameMedianPrice}
-              />
-              <Route path="/uponteeg/:id" exact component={UponTrustedGame} />{" "}
-              <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />{" "}
-              <Route
-                path="/dandqol/:id"
-                exact
-                component={DemographicAndQualityOfLife}
-              />
-              <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
-              <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+                <Route path="/dtr/:id" exact component={DTriad} />
+                <Route
+                  path="/agfp/:id"
+                  exact
+                  component={AuctionGameFreePrice}
+                />
+                <Route
+                  path="/agmp/:id"
+                  exact
+                  component={AuctionGameMedianPrice}
+                />
+                <Route path="/uponteeg/:id" exact component={UponTrustedGame} />{" "}
+                <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />{" "}
+                <Route
+                  path="/dandqol/:id"
+                  exact
+                  component={DemographicAndQualityOfLife}
+                />
+                <Route
+                  path="/nonpdscls/:id"
+                  exact
+                  component={NonPIIDisClosure}
+                />
+                <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+              </div>
             </div>
-          </div>
-        </Fullscreen>
-        {/* </Switch> */}
-        {/* </BrowserRouter> */}
-      </Router>
+          </Fullscreen>
+          {/* </Switch> */}
+          {/* </BrowserRouter> */}
+        </Router>
+      </ModalsProvider>
     );
   }
 }
