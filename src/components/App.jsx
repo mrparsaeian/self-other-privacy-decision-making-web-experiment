@@ -73,7 +73,7 @@ class App extends React.Component {
     this.setState({ isFullscreenEnabled });
     if (!isFullscreenEnabled) {
       console.log("Exited from full Screen");
-      this.openContextTestingModal();
+      // this.openContextTestingModal();
     }
   };
 
