@@ -53,7 +53,7 @@ class AuctionGameClass extends React.Component {
     return (
       <div style={{ textAlign: "right" }}>
         <p>
-          برای دستیابی به داده‌های خصوصی فرد مورد علاقه خود حاظرید هزینه کنید؟
+          برای دستیابی به داده‌های خصوصی فرد مورد علاقه خود  هزینه کنید؟
         </p>
         <p>
         </p>
@@ -87,7 +87,7 @@ class AuctionGameClass extends React.Component {
     this.props.editParticipant(this.props.match.params.id, {
       ontotrusergamedata: { ...ontoTruserGameData },
     });
-    history.push(`/uponteeg/${this.getUserId()}`);
+    history.push(`/agsp/${this.getUserId()}`);
     return (
       <div style={{ textAlign: "right" }}>
         <p>

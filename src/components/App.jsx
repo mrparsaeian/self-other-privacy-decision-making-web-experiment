@@ -23,8 +23,10 @@ import NonPIIDisClosure from "./survey/nonpiidisclosure";
 import PIIDisClosure from "./survey/piidisclosure";
 import AuctionGameFreePrice from "./games/AuctionGameFreePrice/AuctionGameFreePrice";
 import AuctionGameMedianPrice from "./games/AuctionGameMedianPrice/AuctionGameMedianPrice";
+import ActionGameSecondPrice from "./games/ActionGameSecondPrice/ActionGameSecondPrice";
 import OntoTrustedGame from "./games/OntoTrusterGame/OntoTrusterGame";
 import UponTrustedGame from "./games/UponTrusteeGame/UponTrusteeGame";
+
 import history from "../history";
 // import Modals from "../modals/modals"
 class App extends React.Component {
@@ -139,6 +141,7 @@ class App extends React.Component {
             <div>
               {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
               {/* <Route path="/hp" component={HomePage} /> */}
+              {/*  #1 page in route */}
               <Route
                 exact
                 path="/"
@@ -151,28 +154,38 @@ class App extends React.Component {
                   ></Authentication>
                 )}
               />
+              {/*  //#2 page in route */}
+              <Route
+                path="/dandqol/:id"
+                exact
+                component={DemographicAndQualityOfLife}
+              />
               {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}
               {/* <Route
                 path="/landing/:id?/:samplingsourcetype?"
                 exact
                 component={Landing}
               /> */}
+              {/*  #3 page in route */}
+              <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
+              {/*  #4 page in route */}
+              <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+              {/*  #5 page in route */}
               <Route path="/dtr/:id" exact component={DTriad} />
+              {/*  #6 page in route */}
+              <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />
+              {/*  #7 page in route */}
+              <Route path="/uponteeg/:id" exact component={UponTrustedGame} />
+              {/*  #1 page in route */}
               <Route path="/agfp/:id" exact component={AuctionGameFreePrice} />
+              {/*  #1 page in route */}
+              <Route path="/agsp/:id" exact component={ActionGameSecondPrice} />
+              {/*  #1 page in route */}
               <Route
                 path="/agmp/:id"
                 exact
                 component={AuctionGameMedianPrice}
               />
-              <Route path="/uponteeg/:id" exact component={UponTrustedGame} />{" "}
-              <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />{" "}
-              <Route
-                path="/dandqol/:id"
-                exact
-                component={DemographicAndQualityOfLife}
-              />
-              <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
-              <Route path="/pdscls/:id" exact component={PIIDisClosure} />
             </div>
           </div>
         </Fullscreen>
