@@ -16,7 +16,7 @@ import Fullscreen from "react-fullscreen-crossbrowser";
 // import SurveyLanding from "./survey/surveylanding";
 // import Landing from "./initialization/landing";
 // import SpinResults from "./survey/spinResults";
-import Authentication from "./authentication/Authentication";
+import FullScreenHandler from "./fullscreenhandler/FullScreenHandler";
 import DemographicAndQualityOfLife from "./survey/demographicandqualityoflife";
 import DTriad from "./survey/dtriad";
 import NonPIIDisClosure from "./survey/nonpiidisclosure";
@@ -143,12 +143,12 @@ class App extends React.Component {
                 exact
                 path="/"
                 render={(props) => (
-                  <Authentication
+                  <FullScreenHandler
                     handleFullScreenInParent={this.handleFullScreenInParent.bind(
                       this
                     )}
                     {...props}
-                  ></Authentication>
+                  ></FullScreenHandler>
                 )}
               />
               {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}

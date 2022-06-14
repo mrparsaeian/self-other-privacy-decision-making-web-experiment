@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStream } from "../../actions";
-import Authentication from "../authentication/Authentication";
+import FullScreenHandler from "../fullscreenhandler/FullScreenHandler";
 // import { withRouter } from "react-router";
 import "./HomePage.css";
 class HomePage extends React.Component {
@@ -16,7 +16,7 @@ class HomePage extends React.Component {
     return (
       <div>
         <div className="ui placeholder segment">
-          <Authentication />
+          <FullScreenHandler />
           {/* <div class="ui hidden vertical divider">Or</div> */}
         </div>
       </div>
