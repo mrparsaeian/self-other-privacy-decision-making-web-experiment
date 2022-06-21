@@ -1,4 +1,7 @@
 {
     "workbench.preferredHighContrastLightColorTheme": "Quiet Light",
-    "workbench.preferredLightColorTheme": "Solarized Dark"
+    "workbench.preferredLightColorTheme": "Solarized Dark",
+    "search.exclude": {
+        "**/node_modules": false
+    }
 }

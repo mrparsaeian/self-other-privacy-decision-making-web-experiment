@@ -1,4 +1,4 @@
-import css from 'styled-jsx/css'
+import { css } from "styled-jsx/css";
 
 export const styles = css`
   .status-container {
@@ -6,7 +6,7 @@ export const styles = css`
   }
 
   .status-container p {
-    width: 500px
+    width: 500px;
   }
 
   .heading {
@@ -36,7 +36,6 @@ export const styles = css`
 
   .heading span:hover {
     cursor: pointer;
-    color: #333
+    color: #333;
   }
-`
-
+`;

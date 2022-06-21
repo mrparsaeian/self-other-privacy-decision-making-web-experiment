@@ -6,7 +6,7 @@ import {
   SECONDARY_QUESTIONS,
   RANDOMIZE_QUESTIONS,
   INCLUDE_SECONDARY
-} from "../config";
+} from "./config";
 
 /**
  * Actions object for saving svo information

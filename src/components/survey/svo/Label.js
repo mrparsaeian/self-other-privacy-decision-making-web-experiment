@@ -1,5 +1,5 @@
 import React from "react";
-import { styles } from "../styles/label";
+import { styles } from "./labelStyle";
 
 export default class Label extends React.Component {
   constructor(props) {

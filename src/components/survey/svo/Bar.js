@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import { styles } from "../styles/bar";
+import { styles } from "./barStyle";
 
 export default class Bar extends React.Component {
   constructor(props) {

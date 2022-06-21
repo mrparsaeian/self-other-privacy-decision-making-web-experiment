@@ -28,7 +28,7 @@ module.exports = {
   ],
   RANDOMIZE_QUESTIONS: true,
   INCLUDE_SECONDARY: true,
-  INCLUDE_SURVEY: true,
+  INCLUDE_SURVEY: false,
   SURVEY_JSON: {
     title: "A few quick questions before we begin...",
     showProgressBar: "top",

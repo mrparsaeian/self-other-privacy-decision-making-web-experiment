@@ -1,5 +1,15 @@
 {
-    "plugins": [
-      "styled-jsx/babel"
+  // "presets": [
+  //   "@babel/preset-react"
+  // ],
+  "plugins": [
+    [
+      "styled-jsx/babel",
+      {
+        "sourceMaps": true
+      }
     ]
-  }
+    // ,
+    // "react-require"
+  ]
+}

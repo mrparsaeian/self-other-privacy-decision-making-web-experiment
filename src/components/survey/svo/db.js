@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import hat from "hat";
 import PouchDB from "pouchdb-browser";
-import { FIREBASE_URL } from "../config";
+import { FIREBASE_URL } from "./config";
 import {
   computeSVO,
   classifySVO,
