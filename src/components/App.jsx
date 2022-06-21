@@ -20,6 +20,7 @@ import Authentication from "./authentication/Authentication";
 import DemographicAndQualityOfLife from "./survey/demographicandqualityoflife";
 import DTriad from "./survey/dtriad";
 import NonPIIDisClosure from "./survey/nonpiidisclosure";
+import SVO from "./survey/svo/svo";
 import PIIDisClosure from "./survey/piidisclosure";
 import AuctionGameFreePrice from "./games/AuctionGameFreePrice/AuctionGameFreePrice";
 import AuctionGameMedianPrice from "./games/AuctionGameMedianPrice/AuctionGameMedianPrice";
@@ -170,6 +171,7 @@ class App extends React.Component {
               <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
               {/*  #4 page in route */}
               <Route path="/pdscls/:id" exact component={PIIDisClosure} />
+              <Route path="/sweeo/:id" exact component={SVO} />
               {/*  #5 page in route */}
               <Route path="/dtr/:id" exact component={DTriad} />
               {/*  #6 page in route */}
