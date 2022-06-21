@@ -42,6 +42,7 @@ class UponTrusteeGameClass extends React.Component {
     // this.props.editParticipant(this.getUserId(),formValues);
     this.onCompleteComponent(formValuesForUponTrusteePointsOfferingForm)
   };
+
   renderUponTrusteeDescription() {
     // if (this.props.isSignedIn) {
     return (
@@ -59,6 +60,32 @@ class UponTrusteeGameClass extends React.Component {
         <p>این ۵۰ امتیاز هم‌اکنون ۳ برابر می‌شود و به حساب شما اضافه می‌شود.</p>
         <p>شما ۱۵۰ امتیاز دارید.</p>
         <p>چه مقدار از ۱۵۰ امتیاز را به همان شرکت کننده برمی‌گردانید؟</p>
+        <p>
+      {/* Participant A sent you {{ group.sent_amount }}.
+      They were tripled so you received {{ tripled_amount }}.
+      You chose to return {{ group.sent_back_amount }}. */}
+      شرکت‌کننده 
+      C
+      مقدار 
+      `$endoment`
+      برای شما فرستاد. این مقدار هم اکنون ۳ برابر شده  بنابراین شما 
+      `$endoment`
+      دریافت کردید.
+      شما تصمیم گرفتید که مقدار 
+      `$endoment`
+      به او برگردانید.
+  </p>
+  <p>
+      {/* You received {{ tripled_amount }},
+      chose to return {{ group.sent_back_amount }}
+      thus you now have:
+      ({{ tripled_amount }})-({{ group.sent_back_amount }})=<b>{{ player.payoff }}</b> */}
+      شما مقدار
+      `$endoment`
+      دریافت کردید بنابر این اکنون 
+      `$endoment`
+      دارید.
+  </p>
         <UponTrusteePointsOfferingForm onSubmit={this.onSubmit} />
       </div>
     );

@@ -37,7 +37,7 @@
       html {
         margin: 0;
         background: #e5e5e5;
-        font-size: clamp(.8rem, 1vw + 0.5rem, 2rem);
+        font-size: clamp(0.8rem, 1vw + 0.5rem, 2rem);
         font-family: NazliRegular;
       }
       html,
@@ -51,7 +51,6 @@
         justify-content: center;
         align-items: center;
         background-color: rgb(173, 173, 173);
-
       }
 
       .boxofgame {
@@ -86,17 +85,38 @@
              text-align: right;
            } */
     </style>
+    <!-- Show down survey js markdown -->
+    <style>
+      red {
+        color: red;
+      }
+      yellow {
+        color: yellow;
+      }
+      green {
+        color: green;
+      }
+      blue {
+        color: blue;
+      }
+      underlinemarkdown{
+        text-decoration: underline;
+      }
+      nazlifont {
+        font-family: NazliRegular;
+      }
+    </style>
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
       //disable back button
-    window.addEventListener('navigationhandler', function (e) {
-      window.history.pushState(null, document.title, window.location.href);
-      window.addEventListener('popstate', function (event) {
+      window.addEventListener("navigationhandler", function (e) {
         window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener("popstate", function (event) {
+          window.history.pushState(null, document.title, window.location.href);
+        });
       });
-    });
-    //Request full screen
-  </script>
+      //Request full screen
+    </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
