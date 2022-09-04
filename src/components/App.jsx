@@ -1,34 +1,35 @@
-// import React, { useEffect, useRef, useState, Fragment } from "react";
+// "bootstrap": "^5.1.3",
 import React from "react";
-
-// import { Router, Route } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
-// import { Redirect, Switch, Route, withRouter } from "react-router";
-// import { Redirect, Switch, withRouter, Router, Route } from "react-router-dom";
-import { Router, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { Router, Route, Routes } from "react-router-dom";
 import Fullscreen from "react-fullscreen-crossbrowser";
-// import { ModalsProvider, useModals, ContextModalProps } from "@mantine/modals";
-// import { Text, Button, TextInput, MantineProvider } from "@mantine/core";
-// import HomePage from "./rotation/HomePage";
-// import ShapesGameBoard from "./shapesgame/BlobsGameBoard";
-// import BlobsGameBoardMap from "./shapesgame/BlobsGameBoardMap";
-// import SPINSurvey from "./survey/spinsurvey";
-// import SurveyLanding from "./survey/surveylanding";
-// import Landing from "./initialization/landing";
-// import SpinResults from "./survey/spinResults";
-import Authentication from "./authentication/Authentication";
+import Landing from "./survey/Landing";
 import DemographicAndQualityOfLife from "./survey/demographicandqualityoflife";
 import DTriad from "./survey/dtriad";
-import NonPIIDisClosure from "./survey/nonpiidisclosure";
-import PIIDisClosure from "./survey/piidisclosure";
-import AuctionGameFreePrice from "./games/AuctionGameFreePrice/AuctionGameFreePrice";
-import AuctionGameMedianPrice from "./games/AuctionGameMedianPrice/AuctionGameMedianPrice";
-import ActionGameSecondPrice from "./games/ActionGameSecondPrice/ActionGameSecondPrice";
-import OntoTrustedGame from "./games/OntoTrusterGame/OntoTrusterGame";
-import UponTrustedGame from "./games/UponTrusteeGame/UponTrusteeGame";
+import Assessment from "./survey/Assessment";
+
+// Bootstrap CSS
+// import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+// import "bootstrap/dist/js/bootstrap.bundle.min";
+
+import SelfPIIDisclosure from "./survey/SelfPIIDisclosure";
+import OtherPIIDisclosure from "./survey/OtherPIIDisclosure";
+import GlobalConsent from "./survey/GlobalConsent";
+import Final from "./survey/Final";
+import WillingnessToPay from "./survey/WillingnessToPay";
+
+import TPBQuestionnaire from "./survey/TPBQuestionnaire";
+import "./style.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 import history from "../history";
 // import Modals from "../modals/modals"
+import {
+ 
+  // editParticipant,
+  // createUser,
+} from "../actions";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -38,35 +39,10 @@ class App extends React.Component {
       isFullscreenEnabled: false,
     };
   }
-  // const history = createBrowserHistory({ basename: 'process.env.PUBLIC_URL' });
 
   componentDidMount() {
     //Disables back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
-
-    // const { history } = this.props;
-
-    // history.listen((newLocation, action) => {
-    //   if (action === "PUSH") {
-    //     if (
-    //       newLocation.pathname !== this.currentPathname ||
-    //       newLocation.search !== this.currentSearch
-    //     ) {
-    //       // Save new location
-    //       this.currentPathname = newLocation.pathname;
-    //       this.currentSearch = newLocation.search;
-
-    //       // Clone location object and push it to history
-    //       history.push({
-    //         pathname: newLocation.pathname,
-    //         search: newLocation.search,
-    //       });
-    //     }
-    //   } else {
-    //     // Send user back if they try to navigate back
-    //     history.go(1);
-    //   }
-    // });
   }
   handleFullScreenInParent = () => {
     this.setState({ isFullscreenEnabled: true });
@@ -78,121 +54,153 @@ class App extends React.Component {
       // this.openContextTestingModal();
     }
   };
+  SVOUrlGen = (user, urlAfter) => "https://ponya.ir/participantID=" + user + "&nxtPg=https://www.ponya.ir/" + urlAfter
+  URLForPage = {
+    Landing: "/landing/",
+    GlobalConsent: "/gc/",
+    SelfPIIDisclosure: "/spdsc/",
+    OtherPIIDisclosure: "/opdsc/",
+    DemographicAndQualityOfLife: "/dandqol/",
+    Assessment: "/a/",
+    TPBQuestionnaire: "/tpbq/",
+    WillingnessToPay: "/wtp/",
+    DTriad: "/dtr/",
+    SVO: this.SVOUrlGen,
+    Exit: "/e/",
+  };
+  RandomizeGroups = (a) =>
+    Math.random() > 0.5
+      ? {
+        "1stPage": a[0],
+        "2ndPage": a[1],
+        pageAfter1stPage: a[1],
+        pageAfter2ndPage: this.URLForPage.Assessment,
+      }
+      : {
+        "1stPage": a[1],
+        "2ndPage": a[0],
+        pageAfter1stPage: a[0],
+        pageAfter2ndPage: this.URLForPage.Assessment,
+      };
 
-  // TestModal = ({ context, id, innerProps }) => {
-  //   return (
-  //     <div>
-  //       <Text size="sm">{innerProps.modalBody}</Text>
-  //       <Button fullWidth mt="md" onClick={() => context.closeModal(id)}>
-  //         Close modal
-  //       </Button>
-  //     </div>
-  //   );
-  // };
+  selfOtherPIIDisclosureOrder = this.RandomizeGroups([
+    "SelfPIIDisclosure",
+    "OtherPIIDisclosure",
+  ]);
+  // this.URLForPage[this.selfOtherPIIDisclosureOrder["1stPage"]]
+  thePageAfterSVO = `https://www.ponya.ir/${this.URLForPage.SelfPIIDisclosure}`;
+  passToSecondPage = {
+    urlForSVOPart1: "https://www.ponya.ir/participantID=",
+    urlForSVOPart2:
+      `https://ponya.ir/participantID=${this.userID
+      }&nxtPg=https://www.ponya.ir${this.URLForPage[this.selfOtherPIIDisclosureOrder["1stPage"]]
+      }` +
+      "&nxtPg=https://www.ponya.ir/" +
+      this.URLForPage[this.selfOtherPIIDisclosureOrder["1stPage"]],
+  };
+  pageAfterDTriadURLofSVO = `https://ponya.ir/participantID=${this.userID
+    }&nxtPg=https://www.ponya.ir${this.URLForPage[this.selfOtherPIIDisclosureOrder["1stPage"]]
+    }`;
+  selfOtherPIIDisclosureSVOOrder = {
+    urlBeforeUserID: "https://ponya.ir/survey?participantID=",
+    urlAfterUserIDthis:
+      "&nxtPg=https://www.ponya.ir" + this.URLForPage.Assessment,
+  };
 
-  // openMultiStepModalExitFullScreen = () =>
-  //   Modals.openConfirmModal({
-  //     title: "Please confirm your action",
-  //     closeOnConfirm: false,
-  //     labels: { confirm: "Next modal", cancel: "Close modal" },
-  //     children: (
-  //       <Text size="sm">
-  //         This action is so important that you are required to confirm it with a
-  //         modal. Please click one of these buttons to proceed.
-  //       </Text>
-  //     ),
-  //     onConfirm: () =>
-  //       Modals.openConfirmModal({
-  //         title: "This is modal at second layer",
-  //         labels: { confirm: "Close modal", cancel: "Back" },
-  //         closeOnConfirm: false,
-  //         children: (
-  //           <Text size="sm">
-  //             When this modal is closed modals state will revert to first modal
-  //           </Text>
-  //         ),
-  //         onConfirm: () => Modals.closeAll(),
-  //       }),
-  //   });
-  // openContextTestingModal = () =>
-  //   Modals.openContextModal("testing", {
-  //     title: "Test modal from context",
-  //     innerProps: {
-  //       modalBody:
-  //         "This modal was defined in ModalsProvider, you can open it anywhere in you app with useModals hook",
-  //     },
-  //   });
+  nextPageFor = {
+    Landing: this.URLForPage.GlobalConsent,
+    GlobalConsent: this.URLForPage.SelfPIIDisclosure,
+    SelfPIIDisclosure: this.URLForPage.OtherPIIDisclosure,
+    OtherPIIDisclosure: this.URLForPage.DemographicAndQualityOfLife,
+    DemographicAndQualityOfLife: this.URLForPage.Assessment,
+    Assessment: this.URLForPage.TPBQuestionnaire,
+    TPBQuestionnaire: this.URLForPage.WillingnessToPay,
+    WillingnessToPay: this.URLForPage.DTriad,
+    // DTriad: this.selfOtherPIIDisclosureSVOOrder,
+    DTriad: this.SVO,
+    SVO: this.Final,
+    Final: this.URLForPage.Exit,
+  };
+  // [this.selfOtherPIIDisclosureOrder["1stPage"]]:
+  //   this.URLForPage[this.selfOtherPIIDisclosureOrder["2ndPage"]],
+  // [this.selfOtherPIIDisclosureOrder["2ndPage"]]: this.URLForPage.Final,
   render() {
+    // console.log(
+    //   this.URLForPage.SelfPIIDisclosure,
+    //   this.URLForPage.OtherPIIDisclosure,
+    //   this.nextPageFor.SelfPIIDisclosure,
+    //   this.nextPageFor.OtherPIIDisclosure,
+    //   this.URLForPage[this.selfOtherPIIDisclosureOrder["1stPage"]],
+    //   this.URLForPage[this.selfOtherPIIDisclosureOrder["2ndPage"]]
+    // );
     return (
+      // <ons-page>
       <Router history={history} ref={this.componentRef}>
-        {/* <MantineProvider>
-          <ModalsProvider
-            modals={{
-              multiStepModalExitFullScreen: this.openMultiStepModalExitFullScreen,
-              testing: this.TestModal,
-            }}
-          > */}
         <Fullscreen
           enabled={this.state.isFullscreenEnabled}
           onChange={this.handleFullScreenChangeEvent}
         >
-          <div className="ui container">
-            {/* <div> */}
-            <div>
-              {/* <Route exact path="/" render={() => <Redirect to="/hp" />} /> */}
-              {/* <Route path="/hp" component={HomePage} /> */}
-              {/*  #1 page in route */}
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <Authentication
-                    handleFullScreenInParent={this.handleFullScreenInParent.bind(
-                      this
-                    )}
-                    {...props}
-                  ></Authentication>
+          <Route
+            exact
+            path="/landing/"
+            render={(props) => (
+              <Landing
+                handleFullScreenInParent={this.handleFullScreenInParent.bind(
+                  this
                 )}
-              />
-              {/*  //#2 page in route */}
-              <Route
-                path="/dandqol/:id"
-                exact
-                component={DemographicAndQualityOfLife}
-              />
-              {/* <Route exact path="/" component={Authentication handleFullScreen={this.handleFullScreen.bind(this)}} /> */}
-              {/* <Route
-                path="/landing/:id?/:samplingsourcetype?"
-                exact
-                component={Landing}
-              /> */}
-              {/*  #3 page in route */}
-              <Route path="/nonpdscls/:id" exact component={NonPIIDisClosure} />
-              {/*  #4 page in route */}
-              <Route path="/pdscls/:id" exact component={PIIDisClosure} />
-              {/*  #5 page in route */}
-              <Route path="/dtr/:id" exact component={DTriad} />
-              {/*  #6 page in route */}
-              <Route path="/ontoterg/:id" exact component={OntoTrustedGame} />
-              {/*  #7 page in route */}
-              <Route path="/uponteeg/:id" exact component={UponTrustedGame} />
-              {/*  #1 page in route */}
-              <Route path="/agfp/:id" exact component={AuctionGameFreePrice} />
-              {/*  #1 page in route */}
-              <Route path="/agsp/:id" exact component={ActionGameSecondPrice} />
-              {/*  #1 page in route */}
-              <Route
-                path="/agmp/:id"
-                exact
-                component={AuctionGameMedianPrice}
-              />
-            </div>
-          </div>
+                nextPage={this.nextPageFor.Landing}
+                {...props}
+              ></Landing>
+            )}
+          />
+          <Route path={this.URLForPage.TPBQuestionnaire + ":id"} exact>
+            <TPBQuestionnaire nextPage={this.nextPageFor.TPBQuestionnaire} />
+          </Route>
+          <Route path="/gc/:id" exact>
+            <GlobalConsent nextPage={this.nextPageFor.GlobalConsent} />
+          </Route>
+          <Route path="/dandqol/:id" exact>
+            <DemographicAndQualityOfLife
+              nextPage={this.nextPageFor["DemographicAndQualityOfLife"]}
+            />
+          </Route>
+          <Route path={this.URLForPage.Assessment + ":id"} exact>
+            <Assessment
+              nextPage={this.nextPageFor["Assessment"]}
+            />
+          </Route>
+          <Route path={this.URLForPage.OtherPIIDisclosure + ":id"} exact>
+            <OtherPIIDisclosure
+              nextPage={this.nextPageFor["OtherPIIDisclosure"]}
+            />
+          </Route>
+          <Route path={this.URLForPage.SelfPIIDisclosure + ":id"} exact>
+            <SelfPIIDisclosure
+              nextPage={this.nextPageFor["SelfPIIDisclosure"]}
+            />
+          </Route>
+          <Route path={this.URLForPage.DTriad + ":id"} exact>
+            <DTriad nextPage={this.nextPageFor["DTriad"]} />
+          </Route>
+          <Route path={this.URLForPage.WillingnessToPay + ":id"} exact>
+            <WillingnessToPay nextPage={this.nextPageFor["WillingnessToPay"]} />
+          </Route>
+          <Route path="/f/:id" exact>
+            <Final nextPage={`exit`} />
+          </Route>
         </Fullscreen>
-        {/* </ModalsProvider>
-        </MantineProvider> */}
       </Router>
+      // {/* </ons-page> */}
     );
   }
 }
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    participant: state.participant,
+  };
+};
+export default connect(mapStateToProps, {
+ 
+})(App);
+// export default withRouter(FullScreen);
+// export default App;

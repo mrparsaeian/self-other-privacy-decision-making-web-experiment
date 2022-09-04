@@ -3,10 +3,16 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
-// import { FitToViewport } from "react-fit-to-viewport";
 import App from "./components/App";
+import "./fonts/Nazli/Nazli.woff2";
+import "./index.css";
 import reducers from "./reducers";
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'onsenui/css/onsenui.css';
+// import 'onsenui/css/onsen-css-components.css';
+// Bootstrap CSS
+// import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
@@ -15,8 +21,8 @@ const store = createStore(
 
 ReactDOM.render(
   // <React.StrictMode>
-  // <FitToViewport width={650} height={650} minZoom={.5} maxZoom={0.7}>
-  <Provider store={store}>
+  // <FitToViewport width={650} height={550} minZoom={.2} maxZoom={0.7}>
+  <Provider store={store} className="container">
     {/* <ResponsiveFontSize
       ratio={0.5}
       optionsObject={{
@@ -25,7 +31,8 @@ ReactDOM.render(
         lockFontSize: false,
       }}
     > */}
-      <App />
+    <App className="" />
+    {/* <Root /> */}
     {/* </ResponsiveFontSize> */}
   </Provider>,
   // </FitToViewport>,

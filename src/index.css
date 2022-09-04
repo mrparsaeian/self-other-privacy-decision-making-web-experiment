@@ -1,0 +1,85 @@
+div {
+  /* font-size: 1.5em; */
+  /* font-size: clamp(1.6rem, 1vw + 0.5rem, 4rem); */
+  /* responsive-font-size: 4rem; */
+  font-size: calc(1.1rem + 1vw) !important;
+}
+
+@font-face {
+  font-family: "NazliRegular";
+  src: local("Nazli"), url("./fonts/Nazli/Nazli.woff2") format("woff2");
+}
+.font-face-nazli {
+  font-family: "NazliRegular";
+}
+
+#v-container {
+  background: #ddd;
+  height: 100vh;
+  width: 100%;
+}
+
+.image-margin {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.image-border {
+  border-radius: 4px !important;
+}
+
+.no-background {
+  background: transparent !important;
+}
+.svd_survey_designer .svd-designer-container--left-side {
+  width: 40%;
+  max-width: 40%;
+}
+
+.svd_survey_designer .svd-designer-container--right-side {
+  width: 10%;
+  max-width: 10%;
+}
+
+
+
+
+.sv_qstn .sq-root {
+  border: 1px solid gray;
+  border-left: 4px solid #18a689;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+.sv_qstn .sq-root-cb {
+  border-left: 4px solid orange;
+}
+.sv_qstn2 .sq-root {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  border-left: 4px solid #18a689;
+  font-family: NazliRegular;
+}
+.sv_qstn2 .sq-root-cb {
+  border-left: 4px solid orange;
+}
+.sv_qstn2 .sv_btn {
+  border-left: 4px solid orange;
+  font-family: NazliRegular;
+
+}
+
+.sq-title {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.sq-title-required {
+  color: green;
+}
+.sq-label {
+  margin-left: 30px;
+}
+.sq-item:nth-child(1) {
+  margin-bottom: 5px;
+}
+

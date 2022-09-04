@@ -1,0 +1,676 @@
+
+> stub@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+src/actions/index.js
+  Line 2:8:    'history' is defined but never used                        no-unused-vars
+  Line 18:3:   'TIMEOUT_TIMER_GOLBAL_FUNCTION' is defined but never used  no-unused-vars
+  Line 22:3:   'SET_SAMPLINGSOURCETYPE' is defined but never used         no-unused-vars
+  Line 29:7:   'sesseionId' is assigned a value but never used            no-unused-vars
+  Line 178:9:  'response' is assigned a value but never used              no-unused-vars
+
+src/components/App.jsx
+  Line 4:25:  'Routes' is defined but never used                no-unused-vars
+  Line 5:10:  'MemoryRouter' is defined but never used          no-unused-vars
+  Line 5:24:  'Switch' is defined but never used                no-unused-vars
+  Line 16:3:  'Row' is defined but never used                   no-unused-vars
+  Line 17:3:  'Col' is defined but never used                   no-unused-vars
+  Line 18:3:  'Form' is defined but never used                  no-unused-vars
+  Line 19:3:  'Input' is defined but never used                 no-unused-vars
+  Line 20:3:  'Button' is defined but never used                no-unused-vars
+  Line 21:3:  'Navbar' is defined but never used                no-unused-vars
+  Line 22:3:  'Nav' is defined but never used                   no-unused-vars
+  Line 23:3:  'NavbarBrand' is defined but never used           no-unused-vars
+  Line 24:3:  'NavLink' is defined but never used               no-unused-vars
+  Line 25:3:  'NavItem' is defined but never used               no-unused-vars
+  Line 26:3:  'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 27:3:  'DropdownToggle' is defined but never used        no-unused-vars
+  Line 28:3:  'DropdownMenu' is defined but never used          no-unused-vars
+  Line 29:3:  'DropdownItem' is defined but never used          no-unused-vars
+
+src/components/survey/Final.jsx
+  Line 6:10:  'Link' is defined but never used                                  no-unused-vars
+  Line 13:3:  'Row' is defined but never used                                   no-unused-vars
+  Line 14:3:  'Col' is defined but never used                                   no-unused-vars
+  Line 15:3:  'Form' is defined but never used                                  no-unused-vars
+  Line 16:3:  'Input' is defined but never used                                 no-unused-vars
+  Line 17:3:  'Button' is defined but never used                                no-unused-vars
+  Line 18:3:  'Navbar' is defined but never used                                no-unused-vars
+  Line 19:3:  'Nav' is defined but never used                                   no-unused-vars
+  Line 20:3:  'NavbarBrand' is defined but never used                           no-unused-vars
+  Line 21:3:  'NavLink' is defined but never used                               no-unused-vars
+  Line 22:3:  'NavItem' is defined but never used                               no-unused-vars
+  Line 23:3:  'UncontrolledDropdown' is defined but never used                  no-unused-vars
+  Line 24:3:  'DropdownToggle' is defined but never used                        no-unused-vars
+  Line 25:3:  'DropdownMenu' is defined but never used                          no-unused-vars
+  Line 26:3:  'DropdownItem' is defined but never used                          no-unused-vars
+  Line 42:7:  'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 48:7:  'likertChoicesForDTriad' is assigned a value but never used       no-unused-vars
+
+src/components/survey/GlobalConsent.jsx
+  Line 2:8:    'ReactDOM' is defined but never used              no-unused-vars
+  Line 7:10:   'Link' is defined but never used                  no-unused-vars
+  Line 8:8:    '_' is defined but never used                     no-unused-vars
+  Line 14:3:   'Row' is defined but never used                   no-unused-vars
+  Line 15:3:   'Col' is defined but never used                   no-unused-vars
+  Line 16:3:   'Form' is defined but never used                  no-unused-vars
+  Line 17:3:   'Input' is defined but never used                 no-unused-vars
+  Line 18:3:   'Button' is defined but never used                no-unused-vars
+  Line 19:3:   'Navbar' is defined but never used                no-unused-vars
+  Line 20:3:   'Nav' is defined but never used                   no-unused-vars
+  Line 21:3:   'NavbarBrand' is defined but never used           no-unused-vars
+  Line 22:3:   'NavLink' is defined but never used               no-unused-vars
+  Line 23:3:   'NavItem' is defined but never used               no-unused-vars
+  Line 24:3:   'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 25:3:   'DropdownToggle' is defined but never used        no-unused-vars
+  Line 26:3:   'DropdownMenu' is defined but never used          no-unused-vars
+  Line 27:3:   'DropdownItem' is defined but never used          no-unused-vars
+  Line 50:23:  Unexpected string concatenation of literals       no-useless-concat
+  Line 50:41:  Unexpected string concatenation of literals       no-useless-concat
+
+src/components/survey/Landing.jsx
+  Line 4:3:    'fetchParticipantPII' is defined but never used       no-unused-vars
+  Line 5:3:    'editParticipant' is defined but never used        no-unused-vars
+  Line 6:3:    'fetchTasksSetupConfig' is defined but never used  no-unused-vars
+  Line 9:10:   'Link' is defined but never used                   no-unused-vars
+  Line 10:10:  'generatePath' is defined but never used           no-unused-vars
+
+src/components/survey/OtherPIIDisclosure.js
+  Line 2:8:    'ReactDOM' is defined but never used                              no-unused-vars
+  Line 12:10:  'Link' is defined but never used                                  no-unused-vars
+  Line 13:8:   '_' is defined but never used                                     no-unused-vars
+  Line 20:3:   'Row' is defined but never used                                   no-unused-vars
+  Line 21:3:   'Col' is defined but never used                                   no-unused-vars
+  Line 22:3:   'Form' is defined but never used                                  no-unused-vars
+  Line 23:3:   'Input' is defined but never used                                 no-unused-vars
+  Line 24:3:   'Button' is defined but never used                                no-unused-vars
+  Line 25:3:   'Navbar' is defined but never used                                no-unused-vars
+  Line 26:3:   'Nav' is defined but never used                                   no-unused-vars
+  Line 27:3:   'NavbarBrand' is defined but never used                           no-unused-vars
+  Line 28:3:   'NavLink' is defined but never used                               no-unused-vars
+  Line 29:3:   'NavItem' is defined but never used                               no-unused-vars
+  Line 30:3:   'UncontrolledDropdown' is defined but never used                  no-unused-vars
+  Line 31:3:   'DropdownToggle' is defined but never used                        no-unused-vars
+  Line 32:3:   'DropdownMenu' is defined but never used                          no-unused-vars
+  Line 33:3:   'DropdownItem' is defined but never used                          no-unused-vars
+  Line 49:7:   'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 54:7:   'isRequiredForAllQuestions' is assigned a value but never used    no-unused-vars
+
+src/components/survey/SelfPIIDisclosure.js
+  Line 2:8:     'ReactDOM' is defined but never used                            no-unused-vars
+  Line 11:10:   'Link' is defined but never used                                no-unused-vars
+  Line 12:8:    '_' is defined but never used                                   no-unused-vars
+  Line 15:8:    'SurveyFinalPage' is defined but never used                     no-unused-vars
+  Line 19:3:    'Row' is defined but never used                                 no-unused-vars
+  Line 20:3:    'Col' is defined but never used                                 no-unused-vars
+  Line 21:3:    'Form' is defined but never used                                no-unused-vars
+  Line 22:3:    'Input' is defined but never used                               no-unused-vars
+  Line 23:3:    'Button' is defined but never used                              no-unused-vars
+  Line 24:3:    'Navbar' is defined but never used                              no-unused-vars
+  Line 25:3:    'Nav' is defined but never used                                 no-unused-vars
+  Line 26:3:    'NavbarBrand' is defined but never used                         no-unused-vars
+  Line 27:3:    'NavLink' is defined but never used                             no-unused-vars
+  Line 28:3:    'NavItem' is defined but never used                             no-unused-vars
+  Line 29:3:    'UncontrolledDropdown' is defined but never used                no-unused-vars
+  Line 30:3:    'DropdownToggle' is defined but never used                      no-unused-vars
+  Line 31:3:    'DropdownMenu' is defined but never used                        no-unused-vars
+  Line 32:3:    'DropdownItem' is defined but never used                        no-unused-vars
+  Line 46:7:    'markdownNewline' is assigned a value but never used            no-unused-vars
+  Line 47:7:    'isRequiredForAllQuestions' is assigned a value but never used  no-unused-vars
+  Line 89:33:   Unexpected string concatenation of literals                     no-useless-concat
+  Line 89:41:   Unexpected string concatenation of literals                     no-useless-concat
+  Line 103:33:  Unexpected string concatenation of literals                     no-useless-concat
+  Line 103:50:  Unexpected string concatenation of literals                     no-useless-concat
+
+src/components/survey/SurveyFinalPage.jsx
+  Line 7:3:  Useless constructor  no-useless-constructor
+
+src/components/survey/TPBQuestionnaire.jsx
+  Line 7:10:  'Link' is defined but never used                            no-unused-vars
+  Line 12:8:  'history' is defined but never used                         no-unused-vars
+  Line 16:3:  'Row' is defined but never used                             no-unused-vars
+  Line 17:3:  'Col' is defined but never used                             no-unused-vars
+  Line 18:3:  'Form' is defined but never used                            no-unused-vars
+  Line 19:3:  'Input' is defined but never used                           no-unused-vars
+  Line 20:3:  'Button' is defined but never used                          no-unused-vars
+  Line 21:3:  'Navbar' is defined but never used                          no-unused-vars
+  Line 22:3:  'Nav' is defined but never used                             no-unused-vars
+  Line 23:3:  'NavbarBrand' is defined but never used                     no-unused-vars
+  Line 24:3:  'NavLink' is defined but never used                         no-unused-vars
+  Line 25:3:  'NavItem' is defined but never used                         no-unused-vars
+  Line 26:3:  'UncontrolledDropdown' is defined but never used            no-unused-vars
+  Line 27:3:  'DropdownToggle' is defined but never used                  no-unused-vars
+  Line 28:3:  'DropdownMenu' is defined but never used                    no-unused-vars
+  Line 29:3:  'DropdownItem' is defined but never used                    no-unused-vars
+  Line 45:7:  'makeColorfullMarkdown' is assigned a value but never used  no-unused-vars
+
+src/components/survey/WillingnessToPay.jsx
+  Line 18:3:   'Row' is defined but never used                   no-unused-vars
+  Line 19:3:   'Col' is defined but never used                   no-unused-vars
+  Line 20:3:   'Form' is defined but never used                  no-unused-vars
+  Line 21:3:   'Input' is defined but never used                 no-unused-vars
+  Line 22:3:   'Button' is defined but never used                no-unused-vars
+  Line 23:3:   'Navbar' is defined but never used                no-unused-vars
+  Line 24:3:   'Nav' is defined but never used                   no-unused-vars
+  Line 25:3:   'NavbarBrand' is defined but never used           no-unused-vars
+  Line 26:3:   'NavLink' is defined but never used               no-unused-vars
+  Line 27:3:   'NavItem' is defined but never used               no-unused-vars
+  Line 28:3:   'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 29:3:   'DropdownToggle' is defined but never used        no-unused-vars
+  Line 30:3:   'DropdownMenu' is defined but never used          no-unused-vars
+  Line 31:3:   'DropdownItem' is defined but never used          no-unused-vars
+  Line 39:10:  'Link' is defined but never used                  no-unused-vars
+  Line 40:8:   '_' is defined but never used                     no-unused-vars
+
+src/components/survey/demographicandqualityoflife.jsx
+  Line 2:8:     'ReactDOM' is defined but never used                              no-unused-vars
+  Line 7:10:    'Link' is defined but never used                                  no-unused-vars
+  Line 8:8:     '_' is defined but never used                                     no-unused-vars
+  Line 14:3:    'Row' is defined but never used                                   no-unused-vars
+  Line 15:3:    'Col' is defined but never used                                   no-unused-vars
+  Line 16:3:    'Form' is defined but never used                                  no-unused-vars
+  Line 17:3:    'Input' is defined but never used                                 no-unused-vars
+  Line 18:3:    'Button' is defined but never used                                no-unused-vars
+  Line 19:3:    'Navbar' is defined but never used                                no-unused-vars
+  Line 20:3:    'Nav' is defined but never used                                   no-unused-vars
+  Line 21:3:    'NavbarBrand' is defined but never used                           no-unused-vars
+  Line 22:3:    'NavLink' is defined but never used                               no-unused-vars
+  Line 23:3:    'NavItem' is defined but never used                               no-unused-vars
+  Line 24:3:    'UncontrolledDropdown' is defined but never used                  no-unused-vars
+  Line 25:3:    'DropdownToggle' is defined but never used                        no-unused-vars
+  Line 26:3:    'DropdownMenu' is defined but never used                          no-unused-vars
+  Line 27:3:    'DropdownItem' is defined but never used                          no-unused-vars
+  Line 45:7:    'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 51:7:    'likertChoicesForDTriad' is assigned a value but never used       no-unused-vars
+  Line 67:29:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 67:39:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 74:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 74:42:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 81:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 81:42:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 88:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 88:56:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 106:29:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 106:36:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 174:29:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 174:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 181:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 181:56:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 236:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 236:45:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 243:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 243:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 250:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 250:52:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 257:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 257:41:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 264:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 264:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 307:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 307:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 314:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 314:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 321:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 321:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 328:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 328:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 335:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 335:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 360:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 360:54:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 367:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 367:60:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 374:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 374:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 381:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 381:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 388:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 388:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 395:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 395:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 401:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 401:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 427:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 427:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 434:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 434:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 441:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 441:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 448:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 448:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 455:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 455:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 498:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 498:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 505:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 505:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 512:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 512:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 519:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 519:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 526:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 526:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 551:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 551:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 558:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 558:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 565:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 565:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 572:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 572:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 579:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 579:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 622:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 622:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 629:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 629:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 636:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 636:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 643:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 643:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 650:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 650:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 673:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 673:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 680:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 680:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 687:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 687:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 694:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 694:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 701:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 701:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 724:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 724:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 731:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 731:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 738:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 738:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 745:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 745:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 752:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 752:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 796:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 796:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 803:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 803:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 810:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 810:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 817:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 817:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 824:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 824:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 846:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 846:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 853:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 853:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 860:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 860:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 867:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 867:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 874:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 874:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 896:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 896:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 903:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 903:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 910:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 910:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 917:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 917:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 924:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 924:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 968:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 968:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 975:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 975:45:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 982:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 982:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 989:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 989:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 996:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 996:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 1095:3:  Duplicate key 'widthMode'                                         no-dupe-keys
+  Line 1096:3:  Duplicate key 'questionTitlePattern'                              no-dupe-keys
+  Line 1097:3:  Duplicate key 'requiredText'                                      no-dupe-keys
+
+src/components/survey/dtriad.jsx
+  Line 6:10:   'Link' is defined but never used                  no-unused-vars
+  Line 15:3:   'Row' is defined but never used                   no-unused-vars
+  Line 16:3:   'Col' is defined but never used                   no-unused-vars
+  Line 17:3:   'Form' is defined but never used                  no-unused-vars
+  Line 18:3:   'Input' is defined but never used                 no-unused-vars
+  Line 19:3:   'Button' is defined but never used                no-unused-vars
+  Line 20:3:   'Navbar' is defined but never used                no-unused-vars
+  Line 21:3:   'Nav' is defined but never used                   no-unused-vars
+  Line 22:3:   'NavbarBrand' is defined but never used           no-unused-vars
+  Line 23:3:   'NavLink' is defined but never used               no-unused-vars
+  Line 24:3:   'NavItem' is defined but never used               no-unused-vars
+  Line 25:3:   'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 26:3:   'DropdownToggle' is defined but never used        no-unused-vars
+  Line 27:3:   'DropdownMenu' is defined but never used          no-unused-vars
+  Line 28:3:   'DropdownItem' is defined but never used          no-unused-vars
+  Line 58:25:  Unexpected string concatenation of literals       no-useless-concat
+  Line 58:42:  Unexpected string concatenation of literals       no-useless-concat
+  Line 65:25:  Unexpected string concatenation of literals       no-useless-concat
+  Line 65:42:  Unexpected string concatenation of literals       no-useless-concat
+  Line 72:25:  Unexpected string concatenation of literals       no-useless-concat
+  Line 72:50:  Unexpected string concatenation of literals       no-useless-concat
+  Line 79:25:  Unexpected string concatenation of literals       no-useless-concat
+  Line 79:42:  Unexpected string concatenation of literals       no-useless-concat
+  Line 86:25:  Unexpected string concatenation of literals       no-useless-concat
+  Line 86:42:  Unexpected string concatenation of literals       no-useless-concat
+
+src/index.js
+  Line 9:10:  'BrowserRouter' is defined but never used  no-unused-vars
+
+src/reducers/authReducer.js
+  Line 8:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+src/reducers/participantReducer.js
+  Line 1:8:  '_' is defined but never used  no-unused-vars
+
+src/reducers/roomReducer.js
+  Line 8:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+src/reducers/shapesGameReducer.js
+  Line 4:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+src/reducers/taskReducer.js
+  Line 1:8:  '_' is defined but never used                                           no-unused-vars
+  Line 4:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+src/reducers/timerReducer.js
+  Line 15:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  569.81 kB  build/static/js/main.5a6a3eca.js
+  32.67 kB   build/static/css/main.5de906b6.css
+
+The bundle size is significantly larger than recommended.
+Consider reducing it with code splitting: https://goo.gl/9VhYWB
+You can also analyze the project dependencies: https://goo.gl/LeUzfb
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  yarn global add serve
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
+
+> stub@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+src/actions/index.js
+  Line 2:8:   'history' is defined but never used                        no-unused-vars
+  Line 6:3:   'TIMEOUT_TIMER_GOLBAL_FUNCTION' is defined but never used  no-unused-vars
+  Line 9:3:   'READ_PARTICIPANT' is defined but never used               no-unused-vars
+  Line 39:9:  'response' is assigned a value but never used              no-unused-vars
+
+src/components/App.jsx
+  Line 4:25:  'Routes' is defined but never used  no-unused-vars
+
+src/components/survey/Final.jsx
+  Line 6:10:  'Link' is defined but never used                                  no-unused-vars
+  Line 25:7:  'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 31:7:  'likertChoicesForDTriad' is assigned a value but never used       no-unused-vars
+
+src/components/survey/GlobalConsent.jsx
+  Line 2:8:    'ReactDOM' is defined but never used         no-unused-vars
+  Line 7:10:   'Link' is defined but never used             no-unused-vars
+  Line 8:8:    '_' is defined but never used                no-unused-vars
+  Line 33:23:  Unexpected string concatenation of literals  no-useless-concat
+  Line 33:41:  Unexpected string concatenation of literals  no-useless-concat
+
+src/components/survey/Landing.jsx
+  Line 25:7:  'markdownNewline' is assigned a value but never used  no-unused-vars
+
+src/components/survey/OtherPIIDisclosure.js
+  Line 2:8:    'ReactDOM' is defined but never used                              no-unused-vars
+  Line 12:10:  'Link' is defined but never used                                  no-unused-vars
+  Line 13:8:   '_' is defined but never used                                     no-unused-vars
+  Line 32:7:   'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 37:7:   'isRequiredForAllQuestions' is assigned a value but never used    no-unused-vars
+
+src/components/survey/SelfPIIDisclosure.js
+  Line 2:8:    'ReactDOM' is defined but never used                            no-unused-vars
+  Line 11:10:  'Link' is defined but never used                                no-unused-vars
+  Line 12:8:   '_' is defined but never used                                   no-unused-vars
+  Line 15:8:   'SurveyFinalPage' is defined but never used                     no-unused-vars
+  Line 29:7:   'markdownNewline' is assigned a value but never used            no-unused-vars
+  Line 30:7:   'isRequiredForAllQuestions' is assigned a value but never used  no-unused-vars
+  Line 72:33:  Unexpected string concatenation of literals                     no-useless-concat
+  Line 72:41:  Unexpected string concatenation of literals                     no-useless-concat
+  Line 86:33:  Unexpected string concatenation of literals                     no-useless-concat
+  Line 86:50:  Unexpected string concatenation of literals                     no-useless-concat
+
+src/components/survey/SurveyFinalPage.jsx
+  Line 7:3:  Useless constructor  no-useless-constructor
+
+src/components/survey/TPBQuestionnaire.jsx
+  Line 7:10:  'Link' is defined but never used                            no-unused-vars
+  Line 12:8:  'history' is defined but never used                         no-unused-vars
+  Line 28:7:  'makeColorfullMarkdown' is assigned a value but never used  no-unused-vars
+
+src/components/survey/WillingnessToPay.jsx
+  Line 21:10:  'Link' is defined but never used                                      no-unused-vars
+  Line 22:8:   '_' is defined but never used                                         no-unused-vars
+  Line 426:7:  'attitudetestQuestionsdiscPlural' is assigned a value but never used  no-unused-vars
+  Line 429:7:  'attitudetestQuestions' is assigned a value but never used            no-unused-vars
+
+src/components/survey/demographicandqualityoflife.jsx
+  Line 2:8:     'ReactDOM' is defined but never used                              no-unused-vars
+  Line 7:10:    'Link' is defined but never used                                  no-unused-vars
+  Line 8:8:     '_' is defined but never used                                     no-unused-vars
+  Line 28:7:    'firstCommonLineforQuestions' is assigned a value but never used  no-unused-vars
+  Line 34:7:    'likertChoicesForDTriad' is assigned a value but never used       no-unused-vars
+  Line 50:29:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 50:39:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 57:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 57:42:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 64:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 64:42:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 71:33:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 71:56:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 89:29:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 89:36:   Unexpected string concatenation of literals                       no-useless-concat
+  Line 157:29:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 157:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 164:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 164:56:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 219:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 219:45:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 226:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 226:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 233:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 233:52:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 240:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 240:41:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 247:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 247:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 290:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 290:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 297:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 297:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 304:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 304:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 311:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 311:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 318:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 318:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 343:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 343:54:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 350:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 350:60:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 357:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 357:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 364:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 364:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 371:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 371:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 378:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 378:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 384:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 384:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 410:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 410:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 417:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 417:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 424:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 424:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 431:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 431:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 438:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 438:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 481:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 481:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 488:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 488:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 495:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 495:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 502:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 502:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 509:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 509:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 534:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 534:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 541:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 541:40:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 548:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 548:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 555:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 555:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 562:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 562:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 605:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 605:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 612:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 612:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 619:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 619:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 626:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 626:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 633:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 633:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 659:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 659:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 666:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 666:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 673:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 673:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 680:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 680:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 687:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 687:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 713:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 713:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 720:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 720:46:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 727:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 727:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 734:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 734:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 741:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 741:49:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 785:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 785:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 792:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 792:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 799:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 799:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 806:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 806:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 813:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 813:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 838:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 838:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 845:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 845:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 852:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 852:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 859:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 859:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 866:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 866:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 891:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 891:51:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 898:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 898:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 905:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 905:57:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 912:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 912:42:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 919:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 919:47:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 963:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 963:44:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 970:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 970:45:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 977:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 977:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 984:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 984:48:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 991:33:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 991:43:  Unexpected string concatenation of literals                       no-useless-concat
+  Line 1090:3:  Duplicate key 'questionTitlePattern'                              no-dupe-keys
+  Line 1091:3:  Duplicate key 'requiredText'                                      no-dupe-keys
+
+src/components/survey/dtriad.jsx
+  Line 6:10:   'Link' is defined but never used             no-unused-vars
+  Line 40:25:  Unexpected string concatenation of literals  no-useless-concat
+  Line 40:42:  Unexpected string concatenation of literals  no-useless-concat
+  Line 47:25:  Unexpected string concatenation of literals  no-useless-concat
+  Line 47:42:  Unexpected string concatenation of literals  no-useless-concat
+  Line 54:25:  Unexpected string concatenation of literals  no-useless-concat
+  Line 54:50:  Unexpected string concatenation of literals  no-useless-concat
+  Line 61:25:  Unexpected string concatenation of literals  no-useless-concat
+  Line 61:42:  Unexpected string concatenation of literals  no-useless-concat
+  Line 68:25:  Unexpected string concatenation of literals  no-useless-concat
+  Line 68:42:  Unexpected string concatenation of literals  no-useless-concat
+
+src/reducers/index.js
+  Line 2:21:  'formReducer' is defined but never used  no-unused-vars
+
+src/reducers/participantReducer.js
+  Line 1:8:  '_' is defined but never used  no-unused-vars
+
+src/reducers/timerReducer.js
+  Line 15:1:  Assign arrow function to a variable before exporting as module default  import/no-anonymous-default-export
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  505.44 kB (-7.87 kB)  build/static/js/main.b49f0656.js
+  32.75 kB              build/static/css/main.cd24edd1.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+

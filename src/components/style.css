@@ -1,0 +1,148 @@
+.sv_main {
+  font-family: "NazliRegular";
+  /* font-size: 14px; */
+}
+.sv-question,
+.sv-btn,
+.sv-container-modern {
+  font-family: "NazliRegular";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* امشب */
+}
+/* محل قرار گرفتن دکمه بعدی و پایان */
+.sv_main .sv_container .sv_body .sv_nav {
+  padding: 1em 0;
+  min-height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "NazliRegular";
+}
+
+.sv_main .sv_container .sv_body {
+  padding: 1em 1em 1.6428em 1em;
+  padding-top: 1em;
+  /* padding-right: 1em; */
+  padding-bottom: 1.6428em;
+  /* padding-left: 1em; */
+  padding-right: 0.3em;
+  padding-left: 0.5em;
+}
+/* .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.2rem);
+  padding-left: var(--bs-gutter-x, 0.2rem);
+  margin-right: auto;
+  margin-left: auto;
+  font-family: 'NazliRegular';
+} */
+/* فونت پیام خطا برای نزدن گزینه لازم */
+.sv_main span {
+  word-break: break-word;
+  font-family: "NazliRegular";
+}
+
+/* .v-container {
+  background: #ddd;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+} */
+/* #my-container {
+  background: gray;
+  height: 100vh;
+  width: 100%;
+} */
+.container {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.final_start_button {
+  /* display: grid;
+  justify-content: center; */
+  background-color: #179d82; /* Green */
+  border: none;
+  color: white;
+  padding: 0.5em 2em;
+  /* text-align: center; */
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  border-radius: 4px;
+  /* display: block; */
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 40%; */
+  /* width: 25%; */
+  /* padding: 1em 0; */
+  /* min-height: 2em; */
+  /* color: white; */
+  /* background-color: #1ab394; */
+  /* float: left; */
+  margin-bottom: 0.3em;
+  width: 8em;
+  height: 3.5em;
+  text-align: center;
+}
+
+.sv_main .sv_container .sv_body .sv_p_root .sv_q textarea {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1em;
+  line-height: 2em;
+  padding-left: 1em;
+  font-family: "NazliRegular";
+  font: NazliRegular;
+}
+
+.sv_main .sv-action-bar-item span {
+  background-color: #ffffff; /* Green */
+  border: none;
+  color: rgb(196, 196, 196);
+  appearance: none;
+  display: flex;
+
+  padding: 0px;
+  box-sizing: border-box;
+
+  margin-right: 0em;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  /* line-height: 16em; */
+  font-size: 18px;
+  font-size: clamp(2.5rem, 1vw + 0.5rem, 4rem);
+
+  overflow-x: hidden;
+  white-space: nowrap;
+  min-width: auto;
+  /* font-weight: normal; */
+}
+.sv_main .sv-action-bar-item:hover {
+  background-color: #ffffff;
+  /* border: none; */
+  color: rgb(105, 105, 105);
+  /* appearance: none;
+  display: flex;
+  padding: 0px;
+  box-sizing: border-box;
+  margin-right: 0px;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  line-height: 8em;
+  font-size: 16em;
+  overflow-x: hidden;
+  white-space: nowrap;
+  min-width: auto;
+  font-weight: normal; */
+}
+.page__content {
+  direction: rtl;
+}

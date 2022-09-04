@@ -1,21 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="آزمایش" />
-    <link
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
+    <!-- <link
+      
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
-    />
-    <link
+      type="text/css"
+      href="/semantic-ui/2.4.1/semantic.min.css"
+    /> -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    /> -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    /> -->
+    <!-- href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" -->
+    <!-- <link
       rel="stylesheet"
       media="screen"
       href="https://fontlibrary.org//face/nazli"
       type="text/css"
-    />
+    /> -->
     <meta
       http-equiv="Cache-Control"
       content="no-cache, no-store, must-revalidate"
@@ -33,28 +48,36 @@
       }
     </style> -->
     <style>
+      /* @font-face {
+        font-family: "NazliRegular";
+        src: local("NazliRegular"),
+          url("fonts/Nazli/Nazli.woff2") format("woff2");
+      } */
       body,
       html {
-        margin: 0;
-        background: #e5e5e5;
-        font-size: clamp(0.8rem, 1vw + 0.5rem, 2rem);
+        /* margin: 0; */
+        background: #dadada;
+        /* font-size: clamp(0.8rem, 1vw + 0.5rem, 4rem); */
         font-family: NazliRegular;
       }
       html,
       body,
-      #root {
+      /* #root {
         height: 100%;
+      } */
+      .FullScreen {
+        background-color: gray;
       }
 
-      #root {
+      /* #root {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(173, 173, 173);
-      }
+        background-color: gray;
+      } */
 
       .boxofgame {
-        background-color: rgb(173, 173, 173);
+        background-color: gray;
         border: 3px solid #1f1f1f;
         height: 100%;
         box-sizing: content-box;
@@ -64,7 +87,7 @@
         font-size: 1.5em;
       }
       .box {
-        background-color: rgb(255, 255, 255);
+        background-color: gray;
         border: 3px solid #929292;
         height: 100%;
         box-sizing: border-box;
@@ -99,14 +122,34 @@
       blue {
         color: blue;
       }
-      underlinemarkdown{
+      underlinemarkdown {
         text-decoration: underline;
       }
       nazlifont {
         font-family: NazliRegular;
       }
     </style>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- <style>
+      .btn-more-info {
+        color: rgb(134, 134, 134);
+        /* background: rgba(0, 0, 0, 0); */
+        border: none;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: bold;
+        outline: none;
+        padding: 8px 24px;
+        text-align: left;
+        border-radius: 100px;
+      }
+      .btn-more-info:hover {
+        color: rgb(70, 70, 70);
+        /* background-color: rgb(0, 0, 0); */
+        color: rgb(255, 255, 255);
+      }
+    </style> -->
+    <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+
     <script>
       //disable back button
       window.addEventListener("navigationhandler", function (e) {
@@ -117,6 +160,13 @@
       });
       //Request full screen
     </script>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/survey-jquery@1.9.47/survey.jquery.min.js"></script>
+    <script src="https://unpkg.com/easy-autocomplete"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/easy-autocomplete@1.3.5/dist/easy-autocomplete.css"
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -138,6 +188,38 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Modal -->
+    <!-- <div
+      class="modal fade"
+      id="questionDescriptionPopupModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="questionDescriptionTextForModal"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              بستن
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <div id="root"></div>
     <!-- <div id="modal"></div> -->
 
