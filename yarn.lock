@@ -3209,7 +3209,7 @@
   "resolved" "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   "version" "2.1.2"
 
-"autoprefixer@10.4.5":
+"autoprefixer@^10.4.8":
   "integrity" "sha512-Fvd8yCoA7lNX/OUllvS+aS1I7WRBclGXsepbvT8ZaPgrH24rgXpZzF0/6Hh3ZEkwg+0AES/Osd196VZmYoEFtw=="
   "resolved" "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.5.tgz"
   "version" "10.4.5"
@@ -7402,7 +7402,7 @@
   dependencies:
     "jquery" ">=1.8.0 <4.0.0"
 
-"jquery@*", "jquery@^3.2.1", "jquery@^3.6.0", "jquery@>=1.7.2", "jquery@>=1.8.0 <4.0.0":
+"jquery@*", "jquery@^3.2.1", "jquery@^3.6.0", "jquery@>=1.12.4", "jquery@>=1.7.2", "jquery@>=1.8.0 <4.0.0":
   "integrity" "sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw=="
   "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
   "version" "3.6.0"
@@ -10925,6 +10925,13 @@
   "integrity" "sha512-ZRZMaJLh2OGKBbyseQbfBG7hdKeadAKZPpV7uSko2mxo4Ehhqeg7xDo4OAsTRrx20Lryk/OK+YBU5zH2DMzktg=="
   "resolved" "https://registry.npmjs.org/survey-core/-/survey-core-1.9.45.tgz"
   "version" "1.9.45"
+
+"survey-jquery@^1.9.47":
+  "integrity" "sha512-gid6iAZ1I0eQQhr5n59OdMcBgsxFHpR6sKqQX98vZrtwqto2Mwjs20gYeHQBbl7IgNBn71VNx6QD8y+Qksk0Bw=="
+  "resolved" "https://registry.npmjs.org/survey-jquery/-/survey-jquery-1.9.47.tgz"
+  "version" "1.9.47"
+  dependencies:
+    "jquery" ">=1.12.4"
 
 "survey-pdf@^1.9.45":
   "integrity" "sha512-daMuyAA/Q0hbPnXtdkrvkewC74/hdzNpp0cTmrW+8Sn1vNlWy8ZD8HxX3iV8oW6tIpNsbBhXnerN9W1Zt9fSzw=="

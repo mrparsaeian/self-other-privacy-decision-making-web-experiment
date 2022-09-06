@@ -28,7 +28,7 @@ const firstCommonLineforQuestions =
   // " بین" +
   // minMaxTextTitile +
   "گزینه ‌ای که بیشترین مطابق با شما دارد را، انتخاب کنید." + markdownNewline;
-const isRequiredForAllQuestions = false;
+const isRequiredForAllQuestions = true;
 const likertChoicesForDTriad = [
   "کاملا موافقم",
   "نسبتا موافقم",
@@ -108,7 +108,7 @@ InterventionDescription.CuriosityDataBenefit04.Choices = [
   }
 ]
 
-InterventionDescription.SocietalBenefitGroup01.Text = " آیا تمایل دارید به" +
+InterventionDescription.SocietalBenefitGroup01.Text = "کسی معرف شما نبوده است. آیا تمایل دارید به" +
   "<green>" +
   " انجام بهتر این آزمایش" +
   "</green>" +
@@ -117,21 +117,39 @@ InterventionDescription.SocietalBenefitGroup01.Text = " آیا تمایل دار
   " کسب نتایج علمی مفید‌تر" +
   "</green>" +
   " کمک کنید؟"
-InterventionDescription.ScientificDataBenefitGroup02.Text = " آیا تمایل دارید  " +
+InterventionDescription.ScientificDataBenefitGroup02.Text = "کسی معرف شما نبوده است. آیا تمایل دارید  " +
   "<green>" +
   "نتایج علمی نهایی این پژوهش" +
   "</green>" +
-  " را دریافت کنید؟"
-InterventionDescription.IndividualisticDataBenefit03.Text = " آیا تمایل دارید  " +
+  " را، از طریق ایمیل دریافت کنید؟"
+InterventionDescription.IndividualisticDataBenefit03.Text = "کسی معرف شما نبوده است. آیا تمایل دارید  " +
   "<green>" +
-  "داده‌های خام و نتایج آزمایش مربوط به خودتان " +
+  "نتایج علمی نهایی این پژوهش" +
   "</green>" +
-  " را دریافت کنید؟"
-InterventionDescription.CuriosityDataBenefit04.Text = " آیا تمایل دارید  " +
+  " و " +
   "<green>" +
-  "داده‌های خام و نتایج آزمایش مربوط به شرکت کننده جدیدی که معرفی می کنید" +
+  "داده‌های خام و تحلیل شده و نتایج آزمایش مربوط به"+
   "</green>" +
-  " را دریافت کنید؟"
+  "<blue>" +
+  " خودتان " +
+  "</blue>" +
+  " را، از طریق ایمیل دریافت کنید؟"
+InterventionDescription.CuriosityDataBenefit04.Text = "کسی معرف شما نبوده است. آیا تمایل دارید  " +
+  "<green>" +
+  "داده‌های خام و تحلیل شده و نتایج آزمایش مربوط به"+
+  "<blue>" +
+  " خودتان "+
+  "</blue>" +
+  "و "+
+  "<blue>" +
+  "شرکت کننده جدیدی"+
+  "</blue>" +
+  " که معرفی می کنید" +
+  "</green>" +
+  " را، از طریق ایمیل دریافت کنید؟"
+const temptationeText = "در صورت انتخاب گزینه بله و بهره‌مندی  از نتایج این پژوهش، لطفا مشخصات خود و شرکت کننده جدید را تکمیل بفرمایید." +
+  markdownNewline + " فرم‌های مشخصات که در زیر می‌بینید، در صورتی قابل دسترس هستند، که گزینه بله را انتخاب کنید." +
+  markdownNewline + "بعد از تصمیم‌گیری، لطفا دکمه تایید، در پایین فرم‌ها، را بزنید.  "
 const RandomizeGroups = (a, b) => (Math.random() > 0.5 ? a : b);
 const InterventionGroupName = RandomizeGroups(
   RandomizeGroups("SocietalBenefitGroup01", "ScientificDataBenefitGroup02"),
@@ -144,9 +162,12 @@ const Intervention =
       type: "radiogroup",
       name: "ReceiveOtherResultsRequest",
       title:
-        InterventionDescription[InterventionGroupName].Text,
+        InterventionDescription[InterventionGroupName].Text +
+        markdownNewline +
+        temptationeText
+      ,
       choices: InterventionDescription[InterventionGroupName].Choices,
-      isRequired: isRequiredForAllQuestions,
+      isRequired: true,
       requiredErrorText: "لطفا یکی از گزینه‌ها را انتخاب کنید.",
     },
     {
@@ -154,7 +175,7 @@ const Intervention =
       name: "SelfANDOtherPIIInformation",
       title: {
         default: "",
-        fa: "لطفا جهت کمک به کسب نتایج علمی غنی‌تر، مشخصات خود را وارد کنید.",
+        fa: " کسی معرف شما نبوده است. مشخصات خود را تکمیل کنید.",
       },
       "enableIf": "{ReceiveOtherResultsRequest}='YesWantToGet'",
       items: [
@@ -163,7 +184,7 @@ const Intervention =
           name: "selfNameRevised",
           title: {
             default: "",
-            fa: "<nazlifont>" + "نام" + "</nazlifont>",
+            fa: "نام شما:",
           },
           // validators: [
           //   {
@@ -177,13 +198,13 @@ const Intervention =
           name: "selfFamilyNameRevised",
           title: {
             default: "Family Name",
-            fa: "<nazlifont>" + "نام خانوادگی" + "</nazlifont>",
+            fa: "نام خانوادگی شما:",
           },
         },
         {
           name: "selfPhoneNumberRevised",
           title: {
-            fa: "شماره موبایل",
+            fa: "شماره موبایل شما:",
             default: "Mobile number",
           },
         },
@@ -191,7 +212,7 @@ const Intervention =
           name: "selfEmailAddressRevised",
           title: {
             default: "Email address",
-            fa: "ایمیل",
+            fa: "ایمیل شما:",
           },
           validators: [
             {
@@ -204,7 +225,7 @@ const Intervention =
           name: "selfTelegramIDRevised",
           title: {
             default: "Telegram ID",
-            fa: "آی دی تلگرام",
+            fa: "آی دی تلگرام شما:",
           },
         },
       ],
@@ -213,7 +234,7 @@ const Intervention =
       name: "SelfANDOtherPIIInformationOther",
       title: {
         default: "Please enter your mobile phone number and email address.",
-        fa: "لطفا جهت کمک به افزایش شرکت کنندگان و کسب نتایج علمی غنی‌تر، یکی از دوستان خود را به عنوان شرکت کننده جدید، معرفی کنید.",
+        fa: "مشخصات شرکت‌کننده معرفی شده را تکمیل کنید.",
       },
       "enableIf": "{ReceiveOtherResultsRequest}='YesWantToGet'",
       items: [
@@ -223,7 +244,7 @@ const Intervention =
           name: "otherNameRevised",
           title: {
             default: "Name",
-            fa: "نام شرکت کننده جدید",
+            fa: "نام شرکت کننده جدید:",
           },
           // validators: [
           //   {
@@ -270,7 +291,85 @@ const Intervention =
       ],
     },
   ];
-
+const dynamicNewParticipant = [{
+  "showQuestionNumbers": "off",
+  "elements": [
+    {
+      "type": "paneldynamic",
+      "name": "items",
+      "title": "Items",
+      "keyName": "name",
+      "showQuestionNumbers": "off",
+      "templateTitle": "item #{panelIndex}",
+      "templateElements": [
+        {
+          "type": "text",
+          "name": "name",
+          "title": "Name:",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "cost",
+          "inputType": "number",
+          "title": "Item Cost:",
+          "isRequired": true,
+          "startWithNewLine": false
+        },
+        {
+          "type": "text",
+          "name": "vendor",
+          "title": "Vendor:",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "quantity",
+          "inputType": "number",
+          "title": "Quantity:",
+          "isRequired": true,
+          "startWithNewLine": false
+        }, {
+          "type": "text",
+          "name": "link",
+          "title": "Link:",
+          "isRequired": true
+        }, {
+          "type": "expression",
+          "name": "total",
+          "title": "Total Item Cost:",
+          "expression": "{panel.cost} * {panel.quantity}",
+          "displayStyle": "currency",
+          "currency": "EUR",
+          "startWithNewLine": false
+        }
+      ],
+      "minPanelCount": 1,
+      "panelAddText": "Add another  item",
+      "panelRemoveText": "Remove item"
+    }, {
+      "type": "panel",
+      "title": "Totals",
+      "elements": [
+        {
+          "type": "expression",
+          "name": "totalQuantity",
+          "title": "Total  Quantity:",
+          "expression": "sumInArray({items}, 'quantity')"
+        }, {
+          "type": "expression",
+          "name": "totalCost",
+          "title": "Total Cost:",
+          "expression": "sumInArray({items}, 'total')",
+          "displayStyle": "currency",
+          "currency": "EUR",
+          "startWithNewLine": false
+        }
+      ]
+    }
+  ]
+}
+]
 
 const json = {
   pages: [
@@ -278,44 +377,15 @@ const json = {
       name: "FinalReceiveResultsAgreement",
       elements: [
         ...Intervention,
-        // {
-        //   type: "html",
-        //   name: "FinishAgreementText",
-        //   title: "",
-        //   html:
-        //     "<p>" +
-        //     "<nazlifont>" +
-        //     "<red>" +
-        //     "لطفا در حدود ۱۰ دقیق زمان برای انجام مراحل بعدی در نظر بگیرید" +
-        //     markdownNewline +
-        //     // // "<underlinemarkdown>" +
-        //     // // "</underlinemarkdown>" +
-        //     "</red>" +
-        //     "</nazlifont>" +
-        //     "</p>" +
-        //     "<p>" +
-        //     "<nazlifont>" +
-        //     "<red>" +
-        //     "ترجیها در این مدت در فضایی آرام بنشینید و از انجام فعالیت‌های دیگر خودداری فرمایید. " +
-        //     markdownNewline +
-        //     // // "<underlinemarkdown>" +
-        //     // // "</underlinemarkdown>" +
-        //     "</red>" +
-        //     "</nazlifont>" +
-        //     "</p>",
-        //   choices: ["مایل هستم."],
-        //   isRequired: isRequiredForAllQuestions,
-        //   requiredErrorText:
-        //     "ادامه آزمایش نیاز به علامت زدن گزینه و تایید شما دارد.",
-        // },
+        ...dynamicNewParticipant,
       ],
     },
   ],
   widthMode: "responsive",
   questionTitlePattern: "Title",
   requiredText: "",
-  completeText: "شروع",
-  pageNextText: "شروع",
+  completeText: "تایید",
+  pageNextText: "تایید",
 };
 
 class Assessment extends React.Component {
@@ -372,6 +442,7 @@ class Assessment extends React.Component {
           InterventionGroupName
         ],
         submittime: dateTime,
+        timestampsforoptionchange: survey.timestampsoptions,
       },
     };
     this.props.editParticipant(this.props.match.params.id, {
@@ -396,22 +467,119 @@ class Assessment extends React.Component {
       // set html
       options.html = str;
     });
-    const timerCallback = () => {
+    model.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+      classes.mainRoot += " sv_qstn2";
+      classes.root = "sq-root";
+      classes.title += " sq-title";
+      // classes.footer = "sv_qstn2";
+
+      // console.dir(classes);
+      // if (options.question.isRequired) {
+      //   classes.title += " sq-title-required";
+      //   classes.root += " sq-root-required";
+      // }
+      if (options.question.getType() === "checkbox") {
+        classes.root += " sq-root-cb";
+      }
+    });
+    function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(() => {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
     });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
+    });
     timerCallback();
-    this.timerId = window.setInterval(() => {
+    this.timerId = window.setInterval(function () {
       timerCallback();
     }, 1000);
 
@@ -422,69 +590,37 @@ class Assessment extends React.Component {
 
     model.onAfterRenderQuestion.add((sender, options) => {
       // console.log(this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfName)
-      console.log(this.props.participantFromAPI)
-      sender.data = {
-        SelfANDOtherPIIInformation: {
-          // selfNameRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-          //   selfPIIDisclosureData.selfPIIDisclosureMultiText.selfName,
-          selfNameRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-            selfPIIDisclosureData.selfPIIDisclosureMultiText.selfName,
-          // selfNameRevised: "Testor",
-          //     // ****************************************************************************************
-              selfFamilyNameRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-                selfPIIDisclosureData.selfPIIDisclosureMultiText.selfFamilyName,
-          //     // ****************************************************************************************
-              selfPhoneNumberRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-                selfPIIDisclosureData.selfPIIDisclosureMultiText.selfPhoneNumber,
-          //     // ****************************************************************************************
-              selfEmailAddressRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-                selfPIIDisclosureData.selfPIIDisclosureMultiText.selfEmailAddress,
-          //     // ****************************************************************************************
-              selfTelegramIDRevised: this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.
-                selfPIIDisclosureData.selfPIIDisclosureMultiText.selfTelegramID,
-          //     // ****************************************************************************************
+      // console.log("Log1:", this.props.participantFromAPI)
+      const selfNameRevised = this.props.participantFromAPI?.participantFromAPI?.selfPIIDisclosure?.selfPIIDisclosureData?.selfPIIDisclosureMultiText?.selfName ? this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfName : ""
+      const selfFamilyNameRevised = this.props.participantFromAPI?.participantFromAPI?.selfPIIDisclosure?.selfPIIDisclosureData?.selfPIIDisclosureMultiText?.selfFamilyName ? this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfFamilyName : ""
+      const selfPhoneNumberRevised = this.props.participantFromAPI?.participantFromAPI?.selfPIIDisclosure?.selfPIIDisclosureData?.selfPIIDisclosureMultiText?.selfPhoneNumber ? this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfPhoneNumber : ""
+      const selfEmailAddressRevised = this.props.participantFromAPI?.participantFromAPI?.selfPIIDisclosure?.selfPIIDisclosureData?.selfPIIDisclosureMultiText?.selfEmailAddress ? this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfEmailAddress : ""
+      const selfTelegramIDRevised = this.props.participantFromAPI?.participantFromAPI?.selfPIIDisclosure?.selfPIIDisclosureData?.selfPIIDisclosureMultiText?.selfTelegramID ? this.props.participantFromAPI.participantFromAPI.selfPIIDisclosure.selfPIIDisclosureData.selfPIIDisclosureMultiText.selfTelegramID : ""
+      const otherNameRevised = this.props.participantFromAPI?.participantFromAPI?.otherPIIDisClosure?.otherPIIDisClosureData?.otherPIIDisClosureMultiText?.otherName ? this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.otherPIIDisClosureData.otherPIIDisClosureMultiText.otherName : ""
+      const otherFamilyNameRevised = this.props.participantFromAPI?.participantFromAPI?.otherPIIDisClosure?.otherPIIDisClosureData?.otherPIIDisClosureMultiText?.otherFamilyName ? this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.otherPIIDisClosureData.otherPIIDisClosureMultiText.otherFamilyName : ""
+      const otherPhoneNumberRevised = this.props.participantFromAPI?.participantFromAPI?.otherPIIDisClosure?.otherPIIDisClosureData?.otherPIIDisClosureMultiText?.otherPhoneNumber ? this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.otherPIIDisClosureData.otherPIIDisClosureMultiText.otherPhoneNumber : ""
+      const otherEmailAddressRevised = this.props.participantFromAPI?.participantFromAPI?.otherPIIDisClosure?.otherPIIDisClosureData?.otherPIIDisClosureMultiText?.otherEmailAddress ? this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.otherPIIDisClosureData.otherPIIDisClosureMultiText.otherEmailAddress : ""
+      const otherTelegramIDRevised = this.props.participantFromAPI?.participantFromAPI?.otherPIIDisClosure?.otherPIIDisClosureData?.otherPIIDisClosureMultiText?.otherTelegramID ? this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.otherPIIDisClosureData.otherPIIDisClosureMultiText.otherTelegramID : ""
+
+      if (this.props.participantFromAPI.participantFromAPI) {
+        sender.data = {
+          SelfANDOtherPIIInformation: {
+            selfNameRevised: selfNameRevised,
+            selfFamilyNameRevised: selfFamilyNameRevised,
+            selfPhoneNumberRevised: selfPhoneNumberRevised,
+            selfEmailAddressRevised: selfEmailAddressRevised,
+            selfTelegramIDRevised: selfTelegramIDRevised,
           },
           SelfANDOtherPIIInformationOther: {
-            otherNameRevised: this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.
-              otherPIIDisClosureData.otherPIIDisClosureMultiText.otherName,
-          //   // ****************************************************************************************
-            otherFamilynameRevised: this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.
-              otherPIIDisClosureData.otherPIIDisClosureMultiText.otherFamilyName,
-          //   // ****************************************************************************************
-            otherPhoneNumberRevised: this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.
-              otherPIIDisClosureData.otherPIIDisClosureMultiText.otherPhoneNumber,
-          //   // ****************************************************************************************
-            otherEmailAddressRevised: this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.
-              otherPIIDisClosureData.otherPIIDisClosureMultiText.otherEmailAddress,
-          //   // ****************************************************************************************
-            otherTelegramIDRevised: this.props.participantFromAPI.participantFromAPI.otherPIIDisClosure.
-              otherPIIDisClosureData.otherPIIDisClosureMultiText.otherTelegramID,
-          //   // ****************************************************************************************
-          // selfNameRevised: "test"
+            otherNameRevised: otherNameRevised,
+            otherFamilyNameRevised: otherFamilyNameRevised,
+            otherPhoneNumberRevised: otherPhoneNumberRevised,
+            otherEmailAddressRevised: otherEmailAddressRevised,
+            otherTelegramIDRevised: otherTelegramIDRevised,
+          }
         }
       }
-
-      // if (sender.pages[0]) {
-      // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
-      //   sender.timestampsoptions[sender.pages[0].name] = {};
-      // }
-
-      // console.log(
-      //   "startsurvey",
-      //   sender.pages[0].name,
-      //   sender.timestampsoptions[sender.pages[0].name]
-      // );
-      // sender.timestampsoptions[sender.pages[0].name] = {
-      //   ...sender.timestampsoptions[sender.pages[0].name],
-      //   startsurvey: Date.now(),
-      // };
-      // console.log(
-      //   "surveypageisstarted:",
-      //   sender.timestampsoptions[sender.pages[0].name]
-      // );
     }
-      // console.log("changessurvey", sender.pages[0]);
-      // }
     );
     // var surveyRender = !this.state.isCompleted ? (
     var surveyRender = this.state.participantFromAPI.participantFromAPI ? (

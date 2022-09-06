@@ -1,6 +1,6 @@
 .sv_main {
   font-family: "NazliRegular";
-  /* font-size: 14px; */
+  font-size: 1.2em;
 }
 .sv-question,
 .sv-btn,
@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* امشب */
+  font-size: 1.2em;
 }
 /* محل قرار گرفتن دکمه بعدی و پایان */
 .sv_main .sv_container .sv_body .sv_nav {
@@ -19,6 +19,7 @@
   justify-content: center;
   align-items: center;
   font-family: "NazliRegular";
+  font-size: 1.2em;
 }
 
 .sv_main .sv_container .sv_body {
@@ -29,19 +30,21 @@
   /* padding-left: 1em; */
   padding-right: 0.3em;
   padding-left: 0.5em;
+  font-size: 1.2em;
 }
 /* .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.2rem);
   padding-left: var(--bs-gutter-x, 0.2rem);
-  margin-right: auto;
-  margin-left: auto;
+  marginRight: auto;
+  mmarginLeft: auto;
   font-family: 'NazliRegular';
 } */
 /* فونت پیام خطا برای نزدن گزینه لازم */
 .sv_main span {
   word-break: break-word;
   font-family: "NazliRegular";
+  font-size: 1.2rem;
 }
 
 /* .v-container {
@@ -60,49 +63,51 @@
   display: grid;
   place-items: center;
   min-height: 100vh;
+  font-size: 1.2em;
 }
 
 .final_start_button {
   /* display: grid;
   justify-content: center; */
-  background-color: #179d82; /* Green */
+  backgroundcolor: #179d82; /* Green */
   border: none;
   color: white;
   padding: 0.5em 2em;
-  /* text-align: center; */
-  text-decoration: none;
+  /* textAlign: center; */
+  textdecoration: none;
   /* display: inline-block; */
-  font-size: 16px;
-  border-radius: 4px;
+  font-size: 1.2em;
+  borderradius: 4px;
   /* display: block; */
-  margin-left: auto;
-  margin-right: auto;
+  mmarginleft: auto;
+  marginright: auto;
   /* width: 40%; */
   /* width: 25%; */
   /* padding: 1em 0; */
   /* min-height: 2em; */
   /* color: white; */
-  /* background-color: #1ab394; */
+  /* backgroundColor: #1ab394; */
   /* float: left; */
-  margin-bottom: 0.3em;
+  marginbottom: 0.3em;
   width: 8em;
   height: 3.5em;
-  text-align: center;
+  textalign: center;
 }
 
 .sv_main .sv_container .sv_body .sv_p_root .sv_q textarea {
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  font-size: 1em;
+  font-size: 1.2em;
   line-height: 2em;
   padding-left: 1em;
   font-family: "NazliRegular";
   font: NazliRegular;
+  font-size: 1.2em;
 }
 
 .sv_main .sv-action-bar-item span {
-  background-color: #ffffff; /* Green */
+  backgroundcolor: #ffffff; /* Green */
   border: none;
   color: rgb(196, 196, 196);
   appearance: none;
@@ -111,13 +116,12 @@
   padding: 0px;
   box-sizing: border-box;
 
-  margin-right: 0em;
+  marginright: 0em;
   border: none;
-  border-radius: 0px;
+  borderradius: 0px;
   cursor: pointer;
   /* line-height: 16em; */
-  font-size: 18px;
-  font-size: clamp(2.5rem, 1vw + 0.5rem, 4rem);
+  font-size: clamp(2.7rem, 1vw + 1rem, 4rem);
 
   overflow-x: hidden;
   white-space: nowrap;
@@ -125,16 +129,16 @@
   /* font-weight: normal; */
 }
 .sv_main .sv-action-bar-item:hover {
-  background-color: #ffffff;
+  backgroundcolor: #ffffff;
   /* border: none; */
   color: rgb(105, 105, 105);
   /* appearance: none;
   display: flex;
   padding: 0px;
   box-sizing: border-box;
-  margin-right: 0px;
+  marginRight: 0px;
   border: none;
-  border-radius: 0px;
+  borderRadius: 0px;
   cursor: pointer;
   line-height: 8em;
   font-size: 16em;
@@ -142,7 +146,11 @@
   white-space: nowrap;
   min-width: auto;
   font-weight: normal; */
+  font-size: clamp(2.7rem, 1vw + 1rem, 4rem);
+
 }
 .page__content {
   direction: rtl;
+  font-size: clamp(2.7rem, 1vw + 1rem, 4rem);
+
 }

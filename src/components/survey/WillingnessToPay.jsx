@@ -14,7 +14,7 @@ import * as widgets from "surveyjs-widgets";
 import { withRouter } from "react-router-dom";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { editParticipant ,editParticipantGermany} from "../../actions";
+import { editParticipant, editParticipantGermany } from "../../actions";
 Survey.JsonObject.metaData.addProperty("itemvalue", { name: "score:number" });
 Survey.matrixDropdownColumnTypes.rating = {
   properties: ["rateValues"],
@@ -30,10 +30,11 @@ setPageDirection("fa"); // rtl
 // const exportToPdfOptions = {
 //   fontSize: 12,
 // };
-const requiredErrorTextForAllQuest = "لطفا مقدار مورد نظرتان را  انتخاب کنید";
-const isRequiredForAllQuestions = false;
-// const isRequiredForAllQuestions = true;
+const RandomizeGroups = (a, b) => (Math.random() > 0.5 ? a : b);
 
+const requiredErrorTextForAllQuest = "لطفا مقدار مورد نظرتان را  انتخاب کنید";
+const isRequiredForAllQuestions = true;
+// const isRequiredForAllQuestions = true;
 const markdownNewline = "<br />";
 // const markdownNewline = "";
 const markdownTabCharachter = "&nbsp;";
@@ -56,8 +57,11 @@ const EndingDoubleQoute = "»";
 // const StartingDoubleQoute = "";
 // const EndingDoubleQoute = "";
 const winnerCount = 3;
-const minValuation = 1;
-const maxValuation = 100;
+const minValuation = 0;
+const maxValuation = 1000;
+const defaultValue = 500;
+const step = 1;
+
 // questionType = "text";
 const questionType = "nouislider";
 const makeColorfullMarkdown = (text, color) => {
@@ -73,7 +77,32 @@ const minMaxTextTitile =
   "<red>" +
   maxValuation +
   "</red>";
-const firstCommonLineforQuestions = "";
+
+const firstCommonLineforQuestions = (groupName) => {
+  switch (groupName) {
+    case "norm":
+      return (
+        "حدس می زنید " +
+        "<blue>" +
+        " شرکت کنندگان دیگر" +
+        "</blue>" +
+        "، این مجموعه‌داده را چقدر ارزش‌گذاری کرده‌اند؟ " + markdownNewline);
+    case "att":
+      return (
+        "حدس می زنید " +
+        "<blue>" +
+        " ارزش واقعی" +
+        "</blue>" +
+        " این مجموعه‌داده، چقدر  باشد؟" + markdownNewline
+      );
+    default:
+      return "";
+  };
+}
+
+var group01FirstLines = ""
+var group02FirstLines = ""
+
 const secondCommonLineforQuestions =
   "" +
   ineIndicatorCharachter[1] +
@@ -116,7 +145,11 @@ const normRewardDesc = `
   ${minMaxTextTitile} 
   انتخاب کنید تا به سازنده برنامه پرداخت شود.
   ${markdownNewline}
-   باید حدس بزنید که شرکت‌کنندگان دیگر، چه ارزشی را انتخاب کرده اند و عددی که به
+   باید حدس بزنید که
+   <blue>
+   شرکت‌کنندگان دیگر
+   </blue>
+    ، چه ارزشی را انتخاب کرده اند و عددی که به
    ${makeColorfullMarkdown(" نظرتان به انتخاب دیگران نزدیک", "green")}
      است، را انتخاب کنید.
      ${markdownNewline} 
@@ -143,14 +176,53 @@ const attitudetestQuestionsrewardDesc = `
     را درست‌تر حدس زده باشند،
     جایزه‌ای تعلق می گیرد.          
     `;
+const thirdCommonLineforQuestionsAttitude = "ارزش واقعی این مجموعه داده را حدس بزنید و از " +
+  minValuation +
+  " تا " +
+  maxValuation +
+  "بر روی دکمه کشویی زیر، انتخاب کنید."
 
+const thirdCommonLineforQuestionsNorm = "ارزشی که حدس می‌زنید، دیگران به این مجموعه داده می‌دهند را، از " +
+  minValuation +
+  " تا " +
+  maxValuation +
+  "انتخاب کنید."
 const normInitialDescription = initialDescription(normRewardDesc);
-const attitudeInitialDescription = initialDescription(
-  attitudetestQuestionsrewardDesc
-);
-const singleTestNormQuestionsDesc = singleQuestionDesc + normInitialDescription;
+const attitudeInitialDescription = initialDescription(attitudetestQuestionsrewardDesc);
+const singleTestNormQuestionsDesc =
+  ineIndicatorCharachter[1] +
+  "  یک برنامه موبایل به شما معرفی شده است." +
+  ineIndicatorCharachter[3] +
+  " سازنده این برنامه موبایل، اطلاعات مشخصی را از موبایل کاربران دریافت و ذخیره می‌کند." +
+  ineIndicatorCharachter[7] +
+  " اطلاعات زیادی از ۶ ماه پیش تاکنون، از کاربران ایرانی جمع شده است." +
+  ineIndicatorCharachter[8] +
+  " احتمالا، اطلاعات دوستان و آشنایان شما در این مجموعه اطلاعات وجود دارد ." +
+  ineIndicatorCharachter[9] +
+  " سازنده برنامه در ازای پول، " +
+  makeColorfullMarkdown(" مجموعه اطلاعات ذخیره شده", "red") +
+  " را، به شما می‌دهد تا به دلخواه‌تان، آن‌را جستجو و  مشاهده کنید." +
+  markdownNewline +
+  thirdCommonLineforQuestionsNorm;
+
+// const singleTestNormQuestionsDesc = singleQuestionDesc + normInitialDescription;
 const singleTestAttitudeQuestionsDesc =
-  singleQuestionDesc + attitudeInitialDescription;
+
+  ineIndicatorCharachter[1] +
+  "  یک برنامه موبایل به شما معرفی شده است." +
+  ineIndicatorCharachter[3] +
+  " سازنده این برنامه موبایل، اطلاعات مشخصی را از موبایل کاربران دریافت و ذخیره می‌کند." +
+  ineIndicatorCharachter[7] +
+  " اطلاعات زیادی از ۶ ماه پیش تاکنون، از کاربران ایرانی جمع شده است." +
+  ineIndicatorCharachter[8] +
+  " احتمالا، اطلاعات دوستان و آشنایان شما در این مجموعه اطلاعات وجود دارد ." +
+  ineIndicatorCharachter[9] +
+  " سازنده برنامه در ازای پول، " +
+  makeColorfullMarkdown(" مجموعه اطلاعات ذخیره شده", "red") +
+  " را، به شما می‌دهد تا به دلخواه‌تان، آن‌را جستجو و  مشاهده کنید." +
+  markdownNewline +
+  thirdCommonLineforQuestionsAttitude;
+
 
 var testQuestionsForNormValue = [
   {
@@ -160,38 +232,36 @@ var testQuestionsForNormValue = [
         type: questionType,
         name: "TestQuestion01",
         title:
-          "<nazlifont>" +
-          firstCommonLineforQuestions +
+          "" +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه تاکسی اینترنتی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه تاکسی اینترنتی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " زمان و مکان دقیق سوار و پیاده شدن کاربر ",
+            " زمان و مکان دقیق سوار و پیاده شدن کاربر ",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              " برنامه رفت و آمد و مسیرهای پر تکرار کاربر",
+            " برنامه رفت و آمد و مسیرهای پر تکرار کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              " مقدار پول پرداختی کاربر در یک سال گذشته",
+            " مقدار پول پرداختی کاربر در یک سال گذشته",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن و نام و نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن و نام و نام خانوادگی کاربر",
             "blue"
-          ) +
-          "</nazlifont>",
+          ),
         popupdescription: singleTestNormQuestionsDesc,
         description: {
           default: "",
@@ -199,13 +269,10 @@ var testQuestionsForNormValue = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -217,18 +284,18 @@ var testQuestionsForNormValue = [
         name: "TestQuestion02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          "" +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه راهنمای زوج‌ها" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه راهنمای زوج‌ها" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " لیست مشکلات زناشویی مطرح شده توسط کاربر",
+            " لیست مشکلات زناشویی مطرح شده توسط کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
@@ -237,8 +304,8 @@ var testQuestionsForNormValue = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" فاقد", "green") +
-              " هر گونه مشخصات فردی کاربر",
+            makeColorfullMarkdown(" فاقد", "green") +
+            " هر گونه مشخصات فردی کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -249,13 +316,10 @@ var testQuestionsForNormValue = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -272,14 +336,15 @@ const beforeTestQuestDescNorm = [
       برای آشنایی بهتر شما، در ادامه ۲ برنامه به عنوان مثال معرفی می‌شوند.
     </p>
     <p className="font-face-nazli">
-      برای ارزش‌گذاری آنها از دکمه کشویی موجود استفاده کنید.
+      برای ارزش‌گذاری آنها از 
+      <green>
+      دکمه کشویی
+      </green>
+       استفاده کنید.
     </p>
     <p className="font-face-nazli">
      روش  انجام را می توانید مجددا در توضیحات این دو سوال، ببینید.
-  </p>
-  <p className="font-face-nazli">
-    سوالات اصلی بعد از این دو سوال شروع می‌شوند و فاقد توضیحات خواهند بود.
-  </p>`,
+    </p>`,
         choices: ["ادامه"],
         isRequired: isRequiredForAllQuestions,
         requiredErrorText:
@@ -300,14 +365,14 @@ const beforeTestQuestDescAtt = [
       برای آشنایی بهتر شما، در ادامه ۲ برنامه به عنوان مثال معرفی می‌شوند.
     </p>
     <p className="font-face-nazli">
-      برای ارزش‌گذاری آنها از دکمه کشویی موجود استفاده کنید.
+      برای ارزش‌گذاری آنها از 
+      <green>
+      دکمه کشویی
+      </green>
+       استفاده کنید.
     </p>
     <p className="font-face-nazli">
-     روش  انجام را می توانید مجددا در توضیحات این دو سوال، ببینید.
-  </p>
-  <p className="font-face-nazli">
-    سوالات اصلی بعد از این دو سوال شروع می‌شوند و فاقد توضیحات خواهند بود.
-  </p>`,
+     روش  انجام را می توانید مجددا در توضیحات این دو سوال، ببینید.`,
         choices: ["ادامه"],
         isRequired: isRequiredForAllQuestions,
         requiredErrorText:
@@ -327,9 +392,6 @@ const afterTestQuestDesc = [
         html: `
       <p className="font-face-nazli">
         سوالات اصلی در ادامه ارائه می شوند.
-      </p>
-      <p className="font-face-nazli">
-        لطفا با دقت پاسخ دهید.
       </p>`,
         choices: ["ادامه"],
         isRequired: isRequiredForAllQuestions,
@@ -353,13 +415,12 @@ const twoTestQuestionsForAttitudeValue = [
         type: questionType,
         name: "attitudeTestQuestion01",
         title:
-          "<nazlifont>" +
-          firstCommonLineforQuestions +
+          "" +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه حسابداری" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه حسابداری" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -369,11 +430,10 @@ const twoTestQuestionsForAttitudeValue = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن و نام و نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن و نام و نام خانوادگی کاربر",
             "blue"
-          ) +
-          "</nazlifont>",
+          ),
         popupdescription: singleTestAttitudeQuestionsDesc,
         description: {
           default: "",
@@ -381,13 +441,11 @@ const twoTestQuestionsForAttitudeValue = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        // "defaultValue": 66,        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -399,12 +457,12 @@ const twoTestQuestionsForAttitudeValue = [
         name: "attitudeTestQuestion02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          "" +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه راهنمای پزشکی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه راهنمای پزشکی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -418,8 +476,8 @@ const twoTestQuestionsForAttitudeValue = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" فاقد", "green") +
-              " هر گونه مشخصات فردی کاربر",
+            makeColorfullMarkdown(" فاقد", "green") +
+            " هر گونه مشخصات فردی کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -430,13 +488,10 @@ const twoTestQuestionsForAttitudeValue = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -456,13 +511,14 @@ const attitudetestQuestions = [
       برای آشنایی بهتر شما، در ادامه ۲ برنامه به عنوان مثال معرفی می‌شوند.
     </p>
     <p className="font-face-nazli">
-      برای ارزش‌گذاری آنها از دکمه کشویی موجود استفاده کنید.
+      برای ارزش‌گذاری آنها از
+      <green>
+      دکمه کشویی
+      </green>
+       موجود استفاده کنید.
     </p>
     <p className="font-face-nazli">
      روش  انجام را می توانید مجددا در توضیحات این دو سوال، ببینید.
-  </p>
-  <p className="font-face-nazli">
-     سوالات اصلی بعد از این دو سوال شروع می‌شوند و فاقد توضیحات خواهند بود.
   </p>`,
         choices: ["ادامه"],
         isRequired: isRequiredForAllQuestions,
@@ -477,6 +533,18 @@ const twoTestQuestionsForAttitudeValueAndDescs = [
   ...twoTestQuestionsForAttitudeValue,
   ...afterTestQuestDesc,
 ];
+const attitudeAndNormValueGuesingNames = RandomizeGroups(
+  ["Group01", "Group02"],
+  ["Group02", "Group01"]
+);
+
+const attitudeAndNormValueGuesingFirstLines = {
+  [attitudeAndNormValueGuesingNames[0]]: "norm",
+  [attitudeAndNormValueGuesingNames[1]]: "att"
+}
+group01FirstLines = attitudeAndNormValueGuesingFirstLines.Group01
+group02FirstLines = attitudeAndNormValueGuesingFirstLines.Group02
+
 const auctionQuestionsUnshuffledGroup01 = [
   {
     name: "AGMPBidPhysicalPrivacy01", //#1
@@ -485,55 +553,36 @@ const auctionQuestionsUnshuffledGroup01 = [
         type: questionType,
         name: "AGMPBidPhysicalPrivacy01",
         title:
-          "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مدیریت قرار‌ها" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مدیریت قرار‌ها" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              "زمان و مکان دقیق قرارهای ملاقات آینده کاربر",
+            "زمان و مکان دقیق قرارهای ملاقات آینده کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              "برنامه رفت و آمد و مسیرهای پر تکرار کاربر",
+            "برنامه رفت و آمد و مسیرهای پر تکرار کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              "آدرس دقیق محل زندگی، محل کار و تحصیل کاربر",
+            "آدرس دقیق محل زندگی، محل کار و تحصیل کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن کاربر",
             "blue"
-          ) +
-          // "دسترسی به داده‌های جمع‌آوری شده توسط یک اپلیکشن تلفن همراه که اطلاعات" +
-          // "<blue>" +
-          // " شماره تلفن" +
-          // "</blue>" +
-          // "،" +
-          // "<blue>" +
-          // "آدرس محل زندگی" +
-          // "</blue>" +
-          // " و " +
-          // "<blue>" +
-          // "محل کار و تحصیل" +
-          // "</blue>" +
-          // " و " +
-          // "<blue>" +
-          // "زمان و مکان قرارهای ملاقات آینده" +
-          // "</blue>" +
-          // " کاربران خود را ذخیره کرده است. " +
-          "</nazlifont>",
+          ),
         popupdescription: singleQuestionDesc,
         description: {
           default: "",
@@ -541,13 +590,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -559,12 +605,12 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidSocialPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه خاطره نویسی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه خاطره نویسی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -578,11 +624,11 @@ const auctionQuestionsUnshuffledGroup01 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربر" +
-              ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر" +
+            ineIndicatorCharachter[4] +
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -593,17 +639,60 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
   {
+    name: "AttentionAssessmentQuestion", //#5
+    elements: [
+      {
+        type: questionType,
+        name: "AttentionAssessmentQuestion",
+        title:
+          "<nazlifont>" +
+          firstCommonLineforQuestions(group01FirstLines) +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[0] +
+            StartingDoubleQoute +
+            " تستی" +
+            EndingDoubleQoute,
+            "green"
+          ) +
+          secondCommonLineforQuestions +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[1] +
+            "این سوال برای سنجش صحت انجام آزمایش می باشد.",
+            "blue"
+          ) + makeColorfullMarkdown(
+            ineIndicatorCharachter[4] +
+            " لطفا عدد این سوال را روی هزار قرار دهید.",
+            "blue"
+          ) +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[5] +
+            makeColorfullMarkdown("", "green") +
+            "  عدد این سوال را روی هزار قرار دهید.",
+            "blue"
+          )
+        ,
+        popupdescription: singleQuestionDesc,
+        description: {
+          default: "",
+          fa: desc,
+        },
+        isRequired: isRequiredForAllQuestions,
+        requiredErrorText: requiredErrorTextForAllQuest,
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
+      },
+    ],
+  }, {
     name: "AGMPBidResourceRelatedPrivacy01", //#5
     elements: [
       {
@@ -611,21 +700,32 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidResourceRelatedPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه خرید آنلاین" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه خرید آنلاین" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              "لیست محصولات یا خدماتی که کاربر دوست دارد، بزودی خریداری کند ",
+            "لیست محصولات یا خدماتی که کاربر دوست دارد، بزودی خریداری کند ",
+            "blue"
+          ) + makeColorfullMarkdown(
+            ineIndicatorCharachter[4] +
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر",
             "blue"
           ) +
-          "</nazlifont>",
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[5] +
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            "blue"
+          )
+        ,
         popupdescription: singleQuestionDesc,
         description: {
           default: "",
@@ -633,13 +733,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -651,30 +748,30 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidPsychologicalPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مدیریت دوربین‌های حفاظتی منزل" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مدیریت دوربین‌های حفاظتی منزل" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " فایل‌های فیلم‌‌برداری شده از داخل خانه کاربر ",
+            " فایل‌های فیلم‌‌برداری شده از داخل خانه کاربر ",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              makeColorfullMarkdown(" بدون", "green") +
-              " صدا",
+            makeColorfullMarkdown(" بدون", "green") +
+            " صدا",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown("فاقد ", "green") +
-              " هر گونه مشخصات فردی کاربر یا ساکنین",
+            makeColorfullMarkdown("فاقد ", "green") +
+            " هر گونه مشخصات فردی کاربر یا ساکنین",
             "blue"
           ) +
           "</nazlifont>",
@@ -685,13 +782,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -703,42 +797,40 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidProsecutionRelatedPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه دانلود فیلم و سریال ایرانی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مدیرت کننده سیستم  حسابداری شرکت‌ها" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " سابقه فیلم‌ها و سریال‌های دانلود شده کاربر ",
+            " اطلاعات مالی نشان‌دهنده فرار مالیاتی شرکت‌ها و افراد ",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              makeColorfullMarkdown(" بدون", "green") +
-              " پرداخت پول به تولید کننده فیلم",
+            " اطلاعات مالی نشان‌دهنده درآمد‌های ناشی از قاچاق کالا",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" بدون", "green") +
-              " رعایت حق کپی‌رایت",
+            " حساب‌های همه پرداخت‌ها که در جای دیگر ثبت نشده",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[5] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی افراد مسئول در شرکت",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[6] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و شرکت‌ها و افراد",
             "blue"
           ) +
           // "دسترسی به داده‌های یک اپلیکیشن اشتراک فیلم" +
@@ -761,13 +853,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -779,12 +868,12 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidCareerRelatedPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مشاوره شغلی و تحصیلی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مشاوره شغلی و تحصیلی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -798,19 +887,19 @@ const auctionQuestionsUnshuffledGroup01 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              " متن نامه‌های مبادله شده کاری یا تحصیلی کاربر به شرکت‌ها و دانشگاه‌ها ",
+            " متن نامه‌های مبادله شده کاری یا تحصیلی کاربر به شرکت‌ها و دانشگاه‌ها ",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[5] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -821,13 +910,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -839,12 +925,12 @@ const auctionQuestionsUnshuffledGroup01 = [
         name: "AGMPBidFreedomRelatedPrivacy01",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group01FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه آموزش جستجو" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه آموزش جستجو" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -854,14 +940,14 @@ const auctionQuestionsUnshuffledGroup01 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -872,13 +958,10 @@ const auctionQuestionsUnshuffledGroup01 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -891,19 +974,18 @@ const auctionQuestionsUnshuffledGroup02 = [
         type: questionType,
         name: "AGMPBidPhysicalPrivacy02",
         title:
-          "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه ورزش و سلامت" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه ورزش و سلامت" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " اطلاعات موقعیت مکانی دقیق در طول ۲۴ ساعت کاربر",
+            " اطلاعات موقعیت مکانی دقیق در طول ۲۴ ساعت کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
@@ -912,10 +994,15 @@ const auctionQuestionsUnshuffledGroup02 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              " ویژگی‌های فیزیکی مانند جنسیت، سن، قد و وزن کاربر",
+            " ویژگی‌های فیزیکی مانند جنسیت، سن، قد و وزن کاربر",
             "blue"
-          ) +
-          "</nazlifont>",
+          ) + makeColorfullMarkdown(
+            ineIndicatorCharachter[2] +
+            makeColorfullMarkdown(" فاقد", "green") +
+            " هر گونه دیگر مشخصات فردی کاربر ",
+            "blue"
+          )
+        ,
         popupdescription: singleQuestionDesc,
         description: {
           default: "",
@@ -923,13 +1010,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -942,25 +1026,25 @@ const auctionQuestionsUnshuffledGroup02 = [
         name: "AGMPBidSocialPrivacy02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مشاوره" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مشاوره" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " متن دلخوری‌ها، ناراحتی‌ها،" +
-              " اختلافات بیان نشده کاربر از دوستان و اعضای خانواده ",
+            " متن دلخوری‌ها، ناراحتی‌ها،" +
+            " اختلافات بیان نشده کاربر از دوستان و اعضای خانواده ",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              makeColorfullMarkdown(" فاقد", "green") +
-              " هر گونه مشخصات فردی کاربر ",
+            makeColorfullMarkdown(" فاقد", "green") +
+            " هر گونه مشخصات فردی کاربر ",
             "blue"
           ) +
           "</nazlifont>",
@@ -971,13 +1055,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -989,22 +1070,26 @@ const auctionQuestionsUnshuffledGroup02 = [
         type: questionType,
         name: "AGMPBidResourceRelatedPrivacy02",
         title:
-          "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه بانکی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه بانکی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
           makeColorfullMarkdown(
             ineIndicatorCharachter[1] +
-              " حساب‌های بانکی کاربر به همراه رمز حساب‌ها.",
+            " حساب‌های بانکی کاربر به همراه رمز حساب‌ها.",
             "blue"
           ) +
-          "</nazlifont>",
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[2] +
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر",
+            "blue"
+          ),
         popupdescription: singleQuestionDesc,
         description: {
           default: "",
@@ -1012,17 +1097,60 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
-
+  {
+    name: "AttentionAssessmentQuestion", //#5
+    elements: [
+      {
+        type: questionType,
+        name: "AttentionAssessmentQuestionZero",
+        title:
+          "<nazlifont>" +
+          firstCommonLineforQuestions(group01FirstLines) +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[0] +
+            StartingDoubleQoute +
+            "برنامه خرید تستی" +
+            EndingDoubleQoute,
+            "green"
+          ) +
+          secondCommonLineforQuestions +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[1] +
+            "این سوال برای سنجش صحت انجام آزمایش می باشد.",
+            "blue"
+          ) + makeColorfullMarkdown(
+            ineIndicatorCharachter[4] +
+            " لطفا عدد این سوال را روی صفر قرار دهید.",
+            "blue"
+          ) +
+          makeColorfullMarkdown(
+            ineIndicatorCharachter[5] +
+            makeColorfullMarkdown("", "green") +
+            "  عدد این سوال را روی صفر قرار دهید.",
+            "blue"
+          )
+        ,
+        popupdescription: singleQuestionDesc,
+        description: {
+          default: "",
+          fa: desc,
+        },
+        isRequired: isRequiredForAllQuestions,
+        requiredErrorText: requiredErrorTextForAllQuest,
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
+      },
+    ],
+  },
   {
     name: "AGMPBidPsychologicalPrivacy02", //#8
     elements: [
@@ -1031,12 +1159,12 @@ const auctionQuestionsUnshuffledGroup02 = [
         name: "AGMPBidPsychologicalPrivacy02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه یادداشت برداری" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه یادداشت برداری" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -1046,8 +1174,8 @@ const auctionQuestionsUnshuffledGroup02 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              makeColorfullMarkdown("فاقد ", "green") +
-              " هر گونه مشخصات فردی کاربر",
+            makeColorfullMarkdown("فاقد ", "green") +
+            " هر گونه مشخصات فردی کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -1058,13 +1186,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -1077,12 +1202,12 @@ const auctionQuestionsUnshuffledGroup02 = [
         name: "AGMPBidProsecutionRelatedPrivacy02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مدیریت دوربین‌های ترافیکی" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مدیریت دوربین‌های ترافیکی" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -1096,8 +1221,8 @@ const auctionQuestionsUnshuffledGroup02 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown(" فاقد", "green") +
-              " هر گونه مشخصات راننده‌ای که پشت فرمان بوده است",
+            makeColorfullMarkdown(" فاقد", "green") +
+            " هر گونه مشخصات راننده‌ای که پشت فرمان بوده است",
             "blue"
           ) +
           "</nazlifont>",
@@ -1108,13 +1233,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -1127,12 +1249,12 @@ const auctionQuestionsUnshuffledGroup02 = [
         name: "AGMPBidCareerRelatedPrivacy02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه پیام‌رسان" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه پیام‌رسان" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -1146,20 +1268,20 @@ const auctionQuestionsUnshuffledGroup02 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown(" فقط", "green") +
-              " درباره موضوعات کاری یا تحصیلی",
+            makeColorfullMarkdown(" فقط", "green") +
+            " درباره موضوعات کاری یا تحصیلی",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربران",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربران",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[5] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربران",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربران",
             "blue"
           ) +
           "</nazlifont>",
@@ -1170,13 +1292,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -1189,12 +1308,12 @@ const auctionQuestionsUnshuffledGroup02 = [
         name: "AGMPBidFreedomRelatedPrivacy02",
         title:
           "<nazlifont>" +
-          firstCommonLineforQuestions +
+          firstCommonLineforQuestions(group02FirstLines) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[0] +
-              StartingDoubleQoute +
-              "برنامه مشاوره ازدواج" +
-              EndingDoubleQoute,
+            StartingDoubleQoute +
+            "برنامه مشاوره ازدواج" +
+            EndingDoubleQoute,
             "green"
           ) +
           secondCommonLineforQuestions +
@@ -1204,19 +1323,19 @@ const auctionQuestionsUnshuffledGroup02 = [
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[2] +
-              "لیست مشکلات شخصیتی و روانی کاربر که رابطه عاطفی را مختل می‌کند",
+            "لیست مشکلات شخصیتی و روانی کاربر که رابطه عاطفی را مختل می‌کند",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[3] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " نام، نام خانوادگی کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " نام، نام خانوادگی کاربر",
             "blue"
           ) +
           makeColorfullMarkdown(
             ineIndicatorCharachter[4] +
-              makeColorfullMarkdown(" دارای", "green") +
-              " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
+            makeColorfullMarkdown(" دارای", "green") +
+            " شماره تلفن، ایمیل و آی دی تلگرام کاربر",
             "blue"
           ) +
           "</nazlifont>",
@@ -1227,13 +1346,10 @@ const auctionQuestionsUnshuffledGroup02 = [
         },
         isRequired: isRequiredForAllQuestions,
         requiredErrorText: requiredErrorTextForAllQuest,
-        validators: [
-          {
-            type: "numeric",
-            minValue: minValuation,
-            maxValue: maxValuation,
-          },
-        ],
+        "rangeMin": minValuation,
+        "rangeMax": maxValuation,
+        "defaultValue": defaultValue,
+        "step": step,
       },
     ],
   },
@@ -1244,7 +1360,7 @@ const auctionQuestionsUnshuffledGroup02 = [
 //   .sort((a, b) => a.sort - b.sort)
 //   .map(({ value }) => value);
 
-const RandomizeGroups = (a, b) => (Math.random() > 0.5 ? a : b);
+// const RandomizeGroups = (a, b) => (Math.random() > 0.5 ? a : b);
 
 const ValueGuesing = {
   Group01: RandomizeGroups(
@@ -1257,17 +1373,31 @@ const ValueGuesing = {
     ["Reversed", auctionQuestionsUnshuffledGroup02.slice().reverse()]
   ),
 };
-const attitudeAndNormValueGuesingNames = RandomizeGroups(
-  ["Group01", "Group02"],
-  ["Group02", "Group01"]
-);
+
+
 const attitudeAndNormValueGuesing = {
   normValueG: ValueGuesing[attitudeAndNormValueGuesingNames[0]],
   attitudeValueG: ValueGuesing[attitudeAndNormValueGuesingNames[1]],
 };
+// const singleQuestDescOthersOrSpecialist = {
+//   att: {
+//     attDesc: thirdCommonLineforQuestionsAttitude,
+//     attQuest: attitudeAndNormValueGuesing.attitudeValueG
+//   },
+//   nor: {
+//     normDesc: thirdCommonLineforQuestionsNorm,
+//     norQuest: attitudeAndNormValueGuesing.normValueG
+//   }
+// }
+
 const initialNormAgreementQuestion = [
   {
-    name: "TPBQuestionnaireDesc",
+    name: "TPBQuestionnaireNormDesc",
+    title: "<red>بازی حدس زدن " +
+      StartingDoubleQoute +
+      "ارزش مجموعه‌داده از نگاه دیگران" +
+      EndingDoubleQoute +
+      "</red>",
     elements: [
       {
         type: "radiogroup",
@@ -1283,7 +1413,12 @@ const initialNormAgreementQuestion = [
 ];
 const initialAttitudeAgreementQuestion = [
   {
-    name: "TPBAttitudeQuestionnaireDesc",
+    name: "TPBAttitudeQuestionnaireAttDesc",
+    title: "<red>بازی حدس زدن " +
+      StartingDoubleQoute +
+      "ارزش مجموعه‌داده" +
+      EndingDoubleQoute +
+      "</red>",
     elements: [
       {
         type: "radiogroup",
@@ -1297,15 +1432,41 @@ const initialAttitudeAgreementQuestion = [
     ],
   },
 ];
+// var NormQuests = singleQuestDescOthersOrSpecialist.nor.norQuest
+// var NormDescGuide = singleQuestDescOthersOrSpecialist.nor.normDesc
+
+// var AttQuests = singleQuestDescOthersOrSpecialist.att.attQuest
+// var AttDescGuide = singleQuestDescOthersOrSpecialist.att.attDesc
+// NormQuests = NormQuests.reduce((questHere) => {
+//   return [questHere.description.fa = NormDescGuide]
+// })
+// AttQuests = AttQuests.reduce((questHere) => {
+//   return [questHere.description.fa = AttDescGuide]
+// })
+const normQuests = attitudeAndNormValueGuesing["normValueG"][1]
+const attQuests = attitudeAndNormValueGuesing["attitudeValueG"][1]
+
+const Part01Quests = [...initialNormAgreementQuestion,
+...testQuestionsForNormValue,
+...normQuests]
+const Part02Quests = [...initialAttitudeAgreementQuestion,
+...twoTestQuestionsForAttitudeValueAndDescs,
+...attQuests,]
+const RandQuests = RandomizeGroups([Part01Quests, Part02Quests], [Part02Quests, Part01Quests])
 var json = {
+
   pages: [
-    ...initialNormAgreementQuestion,
-    ...testQuestionsForNormValue,
-    ...attitudeAndNormValueGuesing["normValueG"][1],
-    ...initialAttitudeAgreementQuestion,
-    ...twoTestQuestionsForAttitudeValueAndDescs,
-    ...attitudeAndNormValueGuesing["attitudeValueG"][1],
+    ...RandQuests[0],
+    ...RandQuests[1],
   ],
+  // pages: [
+  //   ...initialNormAgreementQuestion,
+  //   ...testQuestionsForNormValue,
+  //   ...normQuests,
+  //   ...initialAttitudeAgreementQuestion,
+  //   ...twoTestQuestionsForAttitudeValueAndDescs,
+  //   ...attQuests,
+  // ],
   widthMode: "responsive",
   questionTitlePattern: "Title",
   requiredText: "",
@@ -1313,7 +1474,40 @@ var json = {
   completeText: "تایید",
   pageNextText: "تایید",
 };
-// console.log(json);
+// json = {
+// pages: [
+//   ...initialNormAgreementQuestion,
+//   ...testQuestionsForNormValue,
+//   ...NormQuests,
+//   ...initialAttitudeAgreementQuestion,
+//   ...twoTestQuestionsForAttitudeValueAndDescs,
+//   ...AttQuests,
+// ],
+//   pages: [
+//     {
+//       name: "TPBAttitudeQuestionnaireAttDesc",
+//       title: "<red>بازی حدس زدن ارزش مجموعه‌داده</red>",
+//       elements: [
+//         {
+//           type: "radiogroup",
+//           name: "TPBAttitudeQuestionnaireDesc",
+//           title: attitudeInitialDescription,
+//           choices: ["آماده انجام این بخش هستم."],
+//           isRequired: true,
+//           requiredErrorText:
+//             "ادامه آزمایش نیاز به علامت زدن گزینه و تایید شما دارد.",
+//         },
+//       ],
+//     },
+//   ],
+//   widthMode: "responsive",
+//   questionTitlePattern: "Title",
+//   requiredText: "",
+//   // showTimerPanel: "top",
+//   completeText: "تایید",
+//   pageNextText: "تایید",
+// };
+// console.log("json:", json);
 //  ^ خروچی پی دی اف گرفتن
 // const savePdf = function (surveyData) {
 //   const surveyPdf = new SurveyPDF(json, exportToPdfOptions);
@@ -1362,10 +1556,9 @@ class WillingnessToPay extends React.Component {
     //   this.setState({ descModalCurrentDesc: descModalCurrentDescInSetFun });
   }
   componentDidMount() {
-   // this.props.fetchParticipantPII(this.props.match.params.id);
+    // this.props.fetchParticipantPII(this.props.match.params.id);
     //disables hthe back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
-    widgets.nouislider(Survey);
   }
   //  ^ مودال توضیحات سوال با کامپونن جداگانه
 
@@ -1394,7 +1587,7 @@ class WillingnessToPay extends React.Component {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + " " + time;
     // console.dir("order and group:", auctionQuestionsShuffled);
-    survey.data = {
+    const surveyData = {
       willingnessToPayOthersData: { ...survey.data },
       attitudeValueQuestionsOrder: [
         ...attitudeAndNormValueGuesing["normValueG"][1].map((guest, index) => {
@@ -1413,27 +1606,22 @@ class WillingnessToPay extends React.Component {
       attitudeGroupName: attitudeAndNormValueGuesingNames[1],
       attitudeisReversed: attitudeAndNormValueGuesing["attitudeValueG"][0],
       submittime: dateTime,
+      timestampsforoptionchange: survey.timestampsoptions,
     };
     this.props.editParticipant(this.props.match.params.id, {
-      willingnessToPayOthers: { ...survey.data },
+      willingnessToPayOthers: { ...surveyData },
     });
     this.props.editParticipantGermany(this.props.match.params.id, {
-      willingnessToPayOthers: { ...survey.data },
+      willingnessToPayOthers: { ...surveyData },
     });
     // savePdf(survey.data)
   }
   render() {
     // console.log(this.json);
-
+    widgets.nouislider(Survey);
     var model = new Survey.Model(json);
     model.showQuestionNumbers = "off";
     model.showPrevButton = false; // ^ Uncomment to disable back button
-    // model.onUpdateQuestionCssClasses.add(function (survey, options) {
-    //   var classes = options.cssClasses
-    //   classes.mainRoot += " sv_qstn2";
-    //   classes.root = "sq-root";
-    //   classes.title += " sq-title"
-    // });
     var converter = new Converter();
     model.onTextMarkdown.add(function (survey, options) {
       // convert the markdown text to html
@@ -1460,16 +1648,97 @@ class WillingnessToPay extends React.Component {
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -1481,45 +1750,7 @@ class WillingnessToPay extends React.Component {
     //   title: "Save as PDF",
     //   action: () => savePdf(model.data),
     // });
-    //  ^ modal   //  ^ مودال توضیحات سوال
-    console.dir("noUiSlider:", noUiSlider);
-    // model.onGetQuestionTitleActions.add((_, opt) => {
-    //   opt.titleActions = [
-    //     {
-    //       title: "دیدن دوباره توضیحات",
-    //       innerCss: "btn-more-info",
-    //       action: () => {
-    //         showDescriptionModal(opt.question);
-    //       },
-    //     },
-    //   ];
-    // });
-    // model.onGetQuestionTitleActions.add((_, opt) => {
-    //   opt.titleActions = [
-    //     {
-    //       title: "دیدن دوباره توضیحات",
-    //       innerCss: "btn-more-info",
-    //       action: () => {
-    //         this.DescModalShowFuncParrentToggleFun();
-    //         // this.setModalCurrentDesc(opt.question.popupdescription)
-    //       },
-    //     },
-    //   ];
-    // });
-    // model.onGetPageTitleActions.add((_, opt) => {
-    //   opt.titleActions = [{
-    //       title: 'More Info',
-    //       innerCss: 'btn-more-info',
-    //       action: () => {
-    //         showDescription(opt.page);
-    //       }
-    //     }];
-    // });
-    // const ModalOpen= this.openModal.bind(this)
-    // model.onAfterRenderQuestion.add( (survey, options) => {
 
-    // });
-    //  <DescModal DescModalDesc={this.state.descModalCurrentDesc} DescModalShowFunc=this.DescModalShowFuncParrent />
     var surveyRender = !this.state.isCompleted ? (
       <Survey.Survey
         locale={"fa"}
@@ -1544,8 +1775,8 @@ class WillingnessToPay extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
-export default connect(mapStateToProps, { editParticipant ,editParticipantGermany})(
+export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(
   withRouter(WillingnessToPay)
 );

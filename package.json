@@ -38,6 +38,7 @@
     "rfs": "^9.0.6",
     "semantic-ui-react": "^2.0.3",
     "showdown": "^2.1.0",
+    "survey-jquery": "^1.9.47",
     "survey-pdf": "^1.9.45",
     "survey-react": "^1.8.78",
     "surveyjs-react": "^1.0.1",

@@ -42,15 +42,16 @@ const likertChoicesForDTriad = [
 ];
 const auctionQuestionsUnshuffled = [
   {
-    name: "namesexagepage",
+    name: "SexQuestion",
     elements: [
       {
         type: "radiogroup",
-        name: "sexuality",
+        name: "SexQuestion",
         title: {
           default: "Sex",
           fa: "لطفا جنسیت خود را انتخاب کنید.",
         },
+        isRequired: true,
         choices: [
           {
             value: "Female",
@@ -77,10 +78,11 @@ const auctionQuestionsUnshuffled = [
       },
     ],
   }, {
-    name: "namesexagepage",
+    name: "AgeQuestion",
     elements: [
       {
         type: "dropdown",
+        isRequired: true,
         // commentText: "سن خود را انتخاب کنید",
         // noneText: "سن خود را انتخاب کنید",
         // otherText: "سن خود را انتخاب کنید",
@@ -89,7 +91,7 @@ const auctionQuestionsUnshuffled = [
         optionsCaption:
           // "<nazlifont>" + "سن خود را انتخاب کنید" + "</nazlifont>",
           "لطفا سن خود را انتخاب کنید",
-        name: "age",
+        name: "AgeQuestion",
         title: {
           default: "Age",
           fa: "سن",
@@ -153,25 +155,26 @@ const auctionQuestionsUnshuffled = [
     ],
   },
   {
-    name: "educationpage",
+    name: "EducationQuestion",
     elements: [
       {
         type: "radiogroup",
-        name: "education",
+        name: "EducationQuestion",
+        isRequired: true,
         title: {
           default: "Education",
           fa: "لطفا میزان تحصیلات خود را بیان کنید.",
         },
         choices: [
           {
-            value: "1",
+            value: "Diploma",
             text: {
               default: "High school diploma or lower",
               fa: "<nazlifont>" + "دیپلم یا زیر دیپلم" + "</nazlifont>",
             },
           },
           {
-            value: "2",
+            value: "College",
             text: {
               default: "College",
               fa:
@@ -181,7 +184,7 @@ const auctionQuestionsUnshuffled = [
             },
           },
           {
-            value: "3",
+            value: "Master",
             text: {
               default: "Post graduate",
               fa:
@@ -191,7 +194,7 @@ const auctionQuestionsUnshuffled = [
             },
           },
           {
-            value: "4",
+            value: "PHd",
             text: {
               default: "Phd or higher",
               fa:
@@ -205,7 +208,7 @@ const auctionQuestionsUnshuffled = [
     ],
   },
   {
-    name: "educationpage",
+    name: "UniversityName",
     elements: [
       // {
       //   "type": "tagbox",
@@ -217,7 +220,8 @@ const auctionQuestionsUnshuffled = [
       // },
       {
         type: "text",
-        name: "university",
+        isRequired: true,
+        name: "UniversityName",
         hasNone: true,
         title: {
           default: "University",
@@ -579,16 +583,28 @@ const auctionQuestionsUnshuffled = [
           "دانشگاه آزاد اسلامی واحد یزد"
         ]
       },
+      {
+        type: "text",
+        isRequired: true,
+        name: "CityName",
+        hasNone: true,
+        title: {
+          default: "",
+          fa: "لطفا شهر محل زندگی‌تان را وارد کنید.",
+        },
+      },
+
     ],
   },
   {
-    name: "major",
+    name: "MajorInEducation",
     elements: [
       {
         type: "radiogroup",
+        isRequired: true,
         title: {
-          default: "Education",
-          fa: "لطفا شاخه علمی خود را انتخاب کنید.",
+          default: "MajorInEducation",
+          fa: "لطفا شاخه تحصیلی خود را انتخاب کنید.",
         },
         name: "MajorForEducation",
         choices: [
@@ -654,15 +670,16 @@ const auctionQuestionsUnshuffled = [
     ],
   },
   {
-    name: "Job",
+    name: "JobSatisfaction",
     elements: [
       {
         type: "radiogroup",
         title: {
-          default: "Education",
+          default: "JobSatisfaction",
           fa: "لطفا یکی از موارد زیر را انتخاب کنید.",
         },
-        name: "MajorForEducation",
+        name: "JobSatisfaction",
+        isRequired: true,
         choices: [
 
           {
@@ -711,17 +728,18 @@ const auctionQuestionsUnshuffled = [
         name: "JobTitle",
         title: {
           default: "",
-          fa: "لطفا عنوان شغلی که دارید را وارد کنید.",
+          fa: "لطفا در صورت تمایل عنوان شغلی که دارید را وارد کنید.",
         },
       },
     ]
   },
   {
-    name: "totalqualityoflifepage",
+    name: "TotalQualityOfLife",
     elements: [
       {
         type: "radiogroup",
-        name: "totalqualityoflifequestion",
+        name: "TotalQualityOfLife",
+        isRequired: true,
         title: {
           default: "How would you rate your quality of life?",
           fa:
@@ -773,11 +791,11 @@ const auctionQuestionsUnshuffled = [
         "Please choose the answer that appears most appropriate. If you are unsure about which response to give to a question, the first response you think of is often the best one.Please keep in mind your standards, hopes, pleasures and concerns. We ask that you think about your life in the last four weeks.",
       fa:
         "<nazlifont>" +
-        " لطفاً پاسخی که از نظر شما مناسب تر است را انتخاب کنید." +
+        " لطفاً پاسخی که از نظر شما مناسب‌تر است را انتخاب کنید." +
         "<br />" +
-        "اگر در پاسخ به سوالی تردید دارید، اولین پاسخی که به ذهن تان می رسد را انتخاب کنید." +
+        "اگر در پاسخ به سوالی تردید دارید، اولین پاسخی که به ذهن تان می‌رسد را انتخاب کنید." +
         "<br />" +
-        " لطفاً به سوالات زیر با توجه به شرایط زندگی تان در" +
+        " لطفاً به سوالات زیر با توجه به شرایط زندگی‌تان در" +
         "<red>" +
         // "<underlinemarkdown>" +
         "یک هفته اخیر" +
@@ -793,7 +811,7 @@ const auctionQuestionsUnshuffled = [
     elements: [
       {
         type: "radiogroup",
-        name: "saftyinlifequestion",
+        name: "SaftyInLifeQuestion",
         title: {
           default: "How safe do you feel in your daily life?",
           fa:
@@ -844,7 +862,8 @@ const auctionQuestionsUnshuffled = [
     elements: [
       {
         type: "radiogroup",
-        name: "moneyquestion",
+        name: "MoneyQuestion",
+        isRequired: true,
         title: {
           default: "Have you enough money to meet your needs?",
           fa:
@@ -893,11 +912,12 @@ const auctionQuestionsUnshuffled = [
     ],
   },
   {
-    name: "socialqualitypage",
+    name: "InformationQuestion",
     elements: [
       {
         type: "radiogroup",
-        name: "informationquestion",
+        name: "InformationQuestion",
+        isRequired: true,
         title: {
           default:
             "How available to you is the information that you need in your day-to-day life?",
@@ -947,17 +967,17 @@ const auctionQuestionsUnshuffled = [
     ],
   },
   {
-    name: "mentalhealthpage",
+    name: "MentalHealthQuestion",
     elements: [
       {
         type: "radiogroup",
-        name: "mentalhealthquestion",
+        name: "MentalHealthQuestion",
         title: {
           default:
             "How often do you have negative feelings such as blue mood, despair, anxiety, depression?",
           fa:
             "<nazlifont>" +
-            "چه مقدار دچار احساسات منفی مانند: خلق پایین، نا امیدی، اضطراب وافسردگی می شوید؟" +
+            "چه مقدار دچار احساسات منفی مانند: خلق پایین، نا امیدی، اضطراب و افسردگی می شوید؟" +
             "</nazlifont>",
         },
         choices: [
@@ -1013,11 +1033,11 @@ const auctionQuestionsUnshuffled = [
     },
   },
   {
-    name: "relationshipStatus",
+    name: "RelationshipStatus",
     elements: [
       {
         type: "radiogroup",
-        name: "relationshipStatus",
+        name: "RelationshipStatus",
         title: {
           default:
             "",
@@ -1065,12 +1085,126 @@ const auctionQuestionsUnshuffled = [
         ],
       },
     ],
-    // description: {
-    //   default:
-    //     "",
-    //   fa:
-    //     "لطفا یکی از گزینه های زیر را انتخاب کنید.",
-    // },
+  },
+  {
+    name: "socialqualitypage-SexLifeQuestion",
+    elements: [
+      {
+        type: "radiogroup",
+        name: "SexLifeQuestion",
+        title: {
+          default: "How satisfied are you with your sex life?",
+          fa:
+            "<nazlifont>" +
+            "چقدر از روابط جنسی خود رضایت دارید؟" +
+            "</nazlifont>",
+        },
+        choices: [
+          {
+            value: "00",
+            text: {
+              default: "Reject to answer",
+              fa: "<nazlifont>" + "روابط جنسی ندارم" + "</nazlifont>",
+            },
+          },
+          {
+            value: "0",
+            text: {
+              default: "Reject to answer",
+              fa: "<nazlifont>" + "مایل به پاسخگویی نیستم" + "</nazlifont>",
+            },
+          },
+          {
+            value: "1",
+            text: {
+              default: "Very dissatisfied",
+              fa: "<nazlifont>" + "کاملاً ناراضی" + "</nazlifont>",
+            },
+          },
+          {
+            value: "2",
+            text: {
+              default: "Dissatisfied",
+              fa: "<nazlifont>" + "ناراضی" + "</nazlifont>",
+            },
+          },
+          {
+            value: "3",
+            text: {
+              default: "Neither satisfied nor dissatisfied",
+              fa: "<nazlifont>" + "نه ناراضی و نه راضی" + "</nazlifont>",
+            },
+          },
+          {
+            value: "4",
+            text: {
+              default: "Satisfied",
+              fa: "<nazlifont>" + "راضی" + "</nazlifont>",
+            },
+          },
+          {
+            value: "5",
+            text: {
+              fa: "<nazlifont>" + "خیلی راضی" + "</nazlifont>",
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "ّImportanceOfScience",
+    elements: [
+      {
+        type: "radiogroup",
+        name: "ّImportanceOfScience",
+        title: {
+          default:
+            "",
+          fa:
+
+            "انجام پژوهش‌ های علمی را چقدر مفید می‌دانید؟"
+          ,
+        },
+        choices: [
+          {
+            value: "4",
+            text: {
+              default: "",
+              fa: "خیلی مفید است",
+            },
+          },
+          {
+            value: "3",
+            text: {
+              default: "",
+              fa: "نسبتا مفید است",
+            },
+          },
+          {
+            value: "2",
+            text: {
+              default: "",
+              fa: "کم مفید است",
+            },
+          },
+          {
+            value: "1",
+            text: {
+              default: "",
+              fa: "خیلی کم مفید است",
+            },
+          },
+          {
+            value: "0",
+            text: {
+              default: "",
+              fa: "اصلا مفید نیست",
+            },
+          },
+        ],
+      },
+    ],
   },
 ];
 
@@ -1082,7 +1216,7 @@ const auctionQuestionsShuffled = auctionQuestionsUnshuffled;
 var json = {
   pages: [
     {
-      name: "demographicandQOL",
+      name: "InterventionQuestionnaire",
       elements: [
         {
           type: "radiogroup",
@@ -1107,7 +1241,7 @@ var json = {
   questionTitlePattern: "Title",
   requiredText: "",
 };
-class DemographicAndQualityOfLife extends React.Component {
+class InterventionQuestionnaire extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isCompleted: false };
@@ -1137,14 +1271,16 @@ class DemographicAndQualityOfLife extends React.Component {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + " " + time;
     survey.data = {
-      participantprofile: { ...survey.data },
-      submittime: dateTime,
+      InterventionQuestionnaireData: { ...survey.data },
+      SubmitTimeForInterventionQuestionnaire: dateTime,
+      timestampsforoptionchange: survey.timestampsoptions,
+
     };
     this.props.editParticipant(this.props.match.params.id, {
-      demographic: { ...survey.data },
+      InterventionQuestionnaire: { ...survey.data },
     });
     this.props.editParticipantGermany(this.props.match.params.id, {
-      demographic: { ...survey.data },
+      InterventionQuestionnaire: { ...survey.data },
     });
     history.push(this.props.nextPage + this.getUserId());
   }
@@ -1182,16 +1318,97 @@ class DemographicAndQualityOfLife extends React.Component {
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -1222,9 +1439,9 @@ class DemographicAndQualityOfLife extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
 
 export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(
-  withRouter(DemographicAndQualityOfLife)
+  withRouter(InterventionQuestionnaire)
 );

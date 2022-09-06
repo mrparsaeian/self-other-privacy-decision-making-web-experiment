@@ -23,7 +23,7 @@ setPageDirection("fa"); // rtl
 // setPageDirection("en"); // rtl
 
 const markdownNewline = "<br />";
-const isRequiredForAllQuestions = false;
+const isRequiredForAllQuestions = true;
 
 const json = {
   pages: [
@@ -37,7 +37,7 @@ const json = {
           html: `<p className="font-face-nazli">خوش آمدید.</p>
           <p className="font-face-nazli">این پژوهش به عنوان پایان نامه ارشد رشته علوم شناختی
            دانشکده روانشناسی دانشگاه تهران 
-          و با حمایت دانشکده برق و کامپیوتر انجام می‌شود.</p>
+          و با حمایت دانشکده برق و کامپیوتر دانشگاه تهران و پژوهش‌کده فناوری‌های همگرا انجام می‌شود.</p>
           <p className="font-face-nazli">
           لطفا تا پایان آزمایش در همین صفحه بمانید و از باز کردن اَپ(برنامه) یا وبسایت دیگر، خودداری فرمایید. 
           </p>
@@ -101,14 +101,9 @@ class Landing extends React.Component {
     var dateTime = date + " " + time;
     survey.data = {
       LandingPageData: {
-        ...survey.data,
-        // QuestionsOrder: [
-        //   auctionQuestionsShuffled[0].name,
-        //   auctionQuestionsShuffled[1].name,
-        //   auctionQuestionsShuffled[2].name,
-        // ],
-        submittime: dateTime,
+        ...survey.data
       },
+      submittime: dateTime,
     };
     this.props.editParticipant(this.userID, {
       LandingPage: { ...survey.data },
@@ -134,19 +129,116 @@ class Landing extends React.Component {
       // set html
       options.html = str;
     });
+    model.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+      classes.mainRoot += " sv_qstn2";
+      classes.root = "sq-root";
+      classes.title += " sq-title";
+      // classes.footer = "sv_qstn2";
+
+      // console.dir(classes);
+      // if (options.question.isRequired) {
+      //   classes.title += " sq-title-required";
+      //   classes.root += " sq-root-required";
+      // }
+      if (options.question.getType() === "checkbox") {
+        classes.root += " sq-root-cb";
+      }
+    });
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -178,7 +270,6 @@ class Landing extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    participant: state.participant,
   };
 };
 

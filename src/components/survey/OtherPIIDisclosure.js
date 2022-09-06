@@ -151,6 +151,8 @@ class OtherPIIDisClosure extends React.Component {
     survey.data = {
       otherPIIDisClosureData: { ...survey.data },
       submittime: dateTime,
+      timestampsforoptionchange: survey.timestampsoptions,
+
     };
     this.props.editParticipant(this.props.match.params.id, {
       otherPIIDisClosure: { ...survey.data },
@@ -178,16 +180,97 @@ class OtherPIIDisClosure extends React.Component {
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -214,7 +297,7 @@ class OtherPIIDisClosure extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
 
 export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(

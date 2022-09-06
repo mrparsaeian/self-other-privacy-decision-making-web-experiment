@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Router, Route, Routes } from "react-router-dom";
 import Fullscreen from "react-fullscreen-crossbrowser";
 import Landing from "./survey/Landing";
-import DemographicAndQualityOfLife from "./survey/demographicandqualityoflife";
+import InterventionQuestionnaire from "./survey/InterventionQuestionnaire";
 import DTriad from "./survey/dtriad";
 import Assessment from "./survey/Assessment";
 
@@ -26,7 +26,7 @@ import "./style.css";
 import history from "../history";
 // import Modals from "../modals/modals"
 import {
- 
+
   // editParticipant,
   // createUser,
 } from "../actions";
@@ -54,20 +54,22 @@ class App extends React.Component {
       // this.openContextTestingModal();
     }
   };
-  SVOUrlGen = (user, urlAfter) => "https://ponya.ir/participantID=" + user + "&nxtPg=https://www.ponya.ir/" + urlAfter
-  URLForPage = {
+  SVOUrlGen = (urlAfter) => (user) => "https://ponya.ir/survey?participantID=" + user + "&nxtPg=https://www.ponya.ir" + urlAfter
+  URLForPageInit = {
     Landing: "/landing/",
-    GlobalConsent: "/gc/",
-    SelfPIIDisclosure: "/spdsc/",
-    OtherPIIDisclosure: "/opdsc/",
-    DemographicAndQualityOfLife: "/dandqol/",
+    GlobalConsent: "/g/",
+    SelfPIIDisclosure: "/s/",
+    OtherPIIDisclosure: "/o/",
+    InterventionQuestionnaire: "/i/",
     Assessment: "/a/",
-    TPBQuestionnaire: "/tpbq/",
-    WillingnessToPay: "/wtp/",
-    DTriad: "/dtr/",
-    SVO: this.SVOUrlGen,
+    TPBQuestionnaire: "/t/",
+    WillingnessToPay: "/w/",
+    DTriad: "/d/",
+    // SVO: this.SVOUrlGen(),
+    Final: "/f/",
     Exit: "/e/",
   };
+  URLForPage = { ...this.URLForPageInit, SVO: this.SVOUrlGen(this.URLForPageInit.Final) }
   RandomizeGroups = (a) =>
     Math.random() > 0.5
       ? {
@@ -111,14 +113,13 @@ class App extends React.Component {
     Landing: this.URLForPage.GlobalConsent,
     GlobalConsent: this.URLForPage.SelfPIIDisclosure,
     SelfPIIDisclosure: this.URLForPage.OtherPIIDisclosure,
-    OtherPIIDisclosure: this.URLForPage.DemographicAndQualityOfLife,
-    DemographicAndQualityOfLife: this.URLForPage.Assessment,
+    OtherPIIDisclosure: this.URLForPage.InterventionQuestionnaire,
+    InterventionQuestionnaire: this.URLForPage.Assessment,
     Assessment: this.URLForPage.TPBQuestionnaire,
     TPBQuestionnaire: this.URLForPage.WillingnessToPay,
     WillingnessToPay: this.URLForPage.DTriad,
-    // DTriad: this.selfOtherPIIDisclosureSVOOrder,
-    DTriad: this.SVO,
-    SVO: this.Final,
+    DTriad: this.URLForPage.SVO,
+    SVO: this.URLForPage.Final,
     Final: this.URLForPage.Exit,
   };
   // [this.selfOtherPIIDisclosureOrder["1stPage"]]:
@@ -134,7 +135,6 @@ class App extends React.Component {
     //   this.URLForPage[this.selfOtherPIIDisclosureOrder["2ndPage"]]
     // );
     return (
-      // <ons-page>
       <Router history={history} ref={this.componentRef}>
         <Fullscreen
           enabled={this.state.isFullscreenEnabled}
@@ -156,12 +156,12 @@ class App extends React.Component {
           <Route path={this.URLForPage.TPBQuestionnaire + ":id"} exact>
             <TPBQuestionnaire nextPage={this.nextPageFor.TPBQuestionnaire} />
           </Route>
-          <Route path="/gc/:id" exact>
+          <Route path={this.URLForPage.GlobalConsent + ":id"} exact>
             <GlobalConsent nextPage={this.nextPageFor.GlobalConsent} />
           </Route>
-          <Route path="/dandqol/:id" exact>
-            <DemographicAndQualityOfLife
-              nextPage={this.nextPageFor["DemographicAndQualityOfLife"]}
+          <Route path={this.URLForPage.InterventionQuestionnaire + ":id"} exact>
+            <InterventionQuestionnaire
+              nextPage={this.nextPageFor["InterventionQuestionnaire"]}
             />
           </Route>
           <Route path={this.URLForPage.Assessment + ":id"} exact>
@@ -185,8 +185,8 @@ class App extends React.Component {
           <Route path={this.URLForPage.WillingnessToPay + ":id"} exact>
             <WillingnessToPay nextPage={this.nextPageFor["WillingnessToPay"]} />
           </Route>
-          <Route path="/f/:id" exact>
-            <Final nextPage={`exit`} />
+          <Route path={this.URLForPage.Final + ":id"} exact>
+            <Final nextPage={this.nextPageFor["Final"]} />
           </Route>
         </Fullscreen>
       </Router>
@@ -196,11 +196,11 @@ class App extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    participant: state.participant,
+
   };
 };
 export default connect(mapStateToProps, {
- 
+
 })(App);
 // export default withRouter(FullScreen);
 // export default App;

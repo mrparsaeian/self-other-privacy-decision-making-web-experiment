@@ -29,8 +29,8 @@ const firstCommonLineforQuestions = "";
 const requiredErrorText =
   "ادامه آزمایش نیاز به علامت زدن گزینه و تایید شما دارد.";
 // markdownNewline +
-const NumberOfQuestions = " ۴ ";
-const isRequiredForAllQuestions = false;
+const NumberOfQuestions = " ۶ ";
+const isRequiredForAllQuestions = true;
 const StartingDoubleQoute = "«";
 const EndingDoubleQoute = "»";
 const AppNameForPrivacyEvaluation = " واتساپ ";
@@ -58,19 +58,29 @@ const appDescription = {
  متا 
  ${EndingDoubleQoute}
  آقای مارک زاکربرگ است.
- این شرکت مالک برنامه‌های
+ این شرکت
+ <green> 
+ مالک
+ </green>
+   برنامه‌های
  ${StartingDoubleQoute}
+ <green>
  واتساپ
+ </green>
  ${EndingDoubleQoute}
  ،
  ${StartingDoubleQoute}
+ <green>
  اینستاگرام
+ </green>
  ${EndingDoubleQoute}
  و 
  ${StartingDoubleQoute}
+ <green>
  فیسبوک
+ </green>
  ${EndingDoubleQoute}
- است
+ است.
  `};
 TPB = {
   ...TPB, Beliefs: {
@@ -81,11 +91,19 @@ TPB = {
         " وقتی برنامه" +
         AppNameForPrivacyEvaluation +
         " را نصب می‌کنم، از من درخواست می‌کند که" +
-        " به لیست اسامی افراد و شماره تلفن‌ آن‌ها که در" +
+        " به" +
+        "<green>" +
+        " لیست اسامی افراد و شماره تلفن‌ آن‌ها" +
+        "</green>" +
+        " که در" +
         " در گوشی دارم، دسترسی داشته باشد." +
         EndingDoubleQoute +
         markdownNewline +
-        " چقدر احتمال دارد که، استفاده شرکت متا از این اطلاعات باعث آسیب به این افراد شود ؟"
+        " چقدر احتمال دارد که، استفاده شرکت متا و مدیر‌عاملش از این اطلاعات، باعث" +
+        "<green>" +
+        " آسیب‌ دیدن یا متضرر شدن" +
+        "</green>" +
+        " این افراد شود؟"
       , questionItems: [
         "خیلی زیاد",
         "زیاد",
@@ -110,26 +128,42 @@ TPB = {
     InjunctiveNormativeBeliefsandMotivationtoComply:
     {
       SampleInjunctiveNormativeReferentDataScientists: {
-        questionExpression: `متخصصین علوم داده
+        questionExpression: `
+        به نظر شما کدام گزینه برای پر کردن 
+        <green>
+         جای خالی 
+         </green>
+         در جمله زیر، درست‌تر است؟
+        ${markdownNewline}
+        <blue>
+        متخصصین علوم داده
        (Data Scientist)
-       فکر می کنند که من 
-       .....
-       اجازه دسترسی واتسپ به 
-       " به لیست اسامی افراد و شماره تلفن‌ آن‌ها که در" +
-        " در گوشی دارم، را بدهم.`, questionItems:
+       </blue>
+       ،فکر می کنند که من 
+       <green>
+       ـــــــــ
+       </green>
+       به واتساپ اجازه دهم که
+        به اسامی و شماره تلفن‌ افراد، که
+         در گوشی دارم، دسترسی داشته باشد.`, questionItems:
           ["قطعا باید", "باید", "فرقی نمی‌کند", "نباید", "قطعا نباید"]
       },
       MotivationtoComply: {
         questionExpression: ` وقتی مساله به اشتراک گذاشتن اطلاعات خصوصی دیگران، مطرح باشد
-       من می خواهم به حرف متخصصین علوم داده عمل کنم.`, questionItems: ["کاملا درست است", "نسبتا درست است", "نه درست است و نه نادرست", "درست نیست", "اصلا درست نیست"]
+       من می‌خواهم به حرف متخصصین علوم داده عمل کنم.`, questionItems: ["کاملا درست است", "نسبتا درست است", "نه درست است و نه نادرست", "درست نیست", "اصلا درست نیست"]
       }
     },
     DescriptiveNormativeBeliefsandIdentificationwiththeReferent: {
       SampledescriptivenormativereferentMyfriends: {
         DescriptiveNormativeBeliefStrength: {
-          questionExpression: `بیشتر دوستان من اجازه دسترسی برنامه واتسپ به 
-        لیست اسامی افراد و شماره تلفن‌‌هایی که در" +
-        "در گوشی‌شان دارند را نمی‌دهند.`, questionItems: [
+          questionExpression: `بیشتر دوستان من اجازه دسترسی برنامه واتساپ به 
+        لیست اسامی  و شماره تلفن‌‌های افراد که در
+        در گوشی‌شان دارند را 
+        <red>
+        نمی‌دهند
+        </red>
+        .`, 
+        questionItems: [
             "کاملا درست است",
             "نسبتا درست است",
             "نه درست است و نه نادرست",
@@ -140,7 +174,11 @@ TPB = {
         IdentificationwiththeReferent: {
           questionExpression: ` وقتی مساله به اشتراک گذاشتن اطلاعات خصوصی 
         دیگران مطرح باشد، چقدر می‌خواهید 
-        که  مثل دوستانتان رفتار کنید؟`, questionItems: [
+        که  
+        <green>
+        مثل دوستانتان 
+        </green>
+        رفتار کنید؟`, questionItems: [
             "خیلی زیاد",
             "زیاد",
             "متوسط",
@@ -216,7 +254,10 @@ const IntentionQuestionItems = [
   "شاید ندهم",
   "اصلا نمی‌دهم",
 ];
-
+// console.log("sn", TPB["NormativeBeliefs"]
+// ["DescriptiveNormativeBeliefsandIdentificationwiththeReferent"]
+// ["SampledescriptivenormativereferentMyfriends"]["DescriptiveNormativeBeliefStrength"]["questionExpression"])
+// ["questionExpression"])
 const auctionQuestionsUnshuffled = [
   {
     name: "TPBQuestionnaire-Atteutude", //#1
@@ -247,7 +288,7 @@ const auctionQuestionsUnshuffled = [
     elements: [
       {
         type: "radiogroup",
-        name: "TPBQuestionnaire-SubjectiveNormQuestion",
+        name: "TPBQuestionnaire-SubjectiveNormQuestionExpert",
         title: "<nazlifont>" +
           TPB["NormativeBeliefs"]
           ["InjunctiveNormativeBeliefsandMotivationtoComply"]
@@ -261,7 +302,7 @@ const auctionQuestionsUnshuffled = [
         isRequired: isRequiredForAllQuestions,
       }, {
         type: "radiogroup",
-        name: "TPBQuestionnaire-SubjectiveNormQuestion",
+        name: "TPBQuestionnaire-SubjectiveNormQuestionContext",
         title: "<nazlifont>" +
           TPB["NormativeBeliefs"]
           ["InjunctiveNormativeBeliefsandMotivationtoComply"]
@@ -282,32 +323,35 @@ const auctionQuestionsUnshuffled = [
       {
         type: "radiogroup",
         name: "TPBQuestionnaire-SubjectiveNormQuestion",
-        title: "<nazlifont>" +
+        title:
           TPB["NormativeBeliefs"]
           ["DescriptiveNormativeBeliefsandIdentificationwiththeReferent"]
           ["SampledescriptivenormativereferentMyfriends"]
-          ["questionExpression"] +
-          "</nazlifont>",
+          ["DescriptiveNormativeBeliefStrength"]
+          ["questionExpression"],
         choices: TPB["NormativeBeliefs"]
         ["DescriptiveNormativeBeliefsandIdentificationwiththeReferent"]
         ["SampledescriptivenormativereferentMyfriends"]
+        ["DescriptiveNormativeBeliefStrength"]
         ["questionItems"],
         isRequired: isRequiredForAllQuestions,
-      }, {
+      }, 
+      {
         type: "radiogroup",
-        name: "TPBQuestionnaire-SubjectiveNormQuestion",
-        title: "<nazlifont>" +
+        name: "TPBQuestionnaire-IdentificationwiththeReferent",
+        title:
           TPB["NormativeBeliefs"]
           ["DescriptiveNormativeBeliefsandIdentificationwiththeReferent"]
           ["SampledescriptivenormativereferentMyfriends"]
-          ["questionExpression"] +
-          "</nazlifont>",
+          ["IdentificationwiththeReferent"]
+          ["questionExpression"],
         choices: TPB["NormativeBeliefs"]
         ["DescriptiveNormativeBeliefsandIdentificationwiththeReferent"]
         ["SampledescriptivenormativereferentMyfriends"]
+        ["IdentificationwiththeReferent"]
         ["questionItems"],
         isRequired: isRequiredForAllQuestions,
-      }
+      }, 
     ],
   },
   {
@@ -361,12 +405,43 @@ const auctionQuestionsShuffled = auctionQuestionsUnshuffled;
 const json = {
   pages: [
     {
+      name: "StartAnnouncementAgreementText",
+      elements: [
+        {
+          type: "html",
+          name: "StartAnnouncementAgreementText",
+          title: "",
+          html:
+            "<p>" +
+            "<red>" +
+            "لطفا در حدود ۱۰ دقیقه زمان برای انجام مراحل بعدی در نظر بگیرید." +
+            markdownNewline +
+            // // "<underlinemarkdown>" +
+            // // "</underlinemarkdown>" +
+            "</red>" +
+            "</p>" +
+            "<p>" +
+            "<red>" +
+            "ترجیحا در این مدت در فضایی آرام بنشینید و از انجام فعالیت‌های دیگر خودداری فرمایید. " +
+            markdownNewline +
+            "</red>" +
+
+            "</p>",
+          choices: ["آماده هستم."],
+          isRequired: isRequiredForAllQuestions,
+          requiredErrorText:
+            "ادامه آزمایش نیاز به علامت زدن گزینه و تایید شما دارد.",
+        }
+      ]
+    }
+    ,
+    {
       name: "TPBQuestionnaireDesc",
       elements: [
         {
           type: "radiogroup",
           name: "TPBQuestionnaireDesc",
-          title: "<nazlifont>" + TPBQuestionnaireDescTitle + "</nazlifont>",
+          title: TPBQuestionnaireDescTitle,
           choices: ["آماده انجام این بخش هستم."],
           isRequired: true,
           requiredErrorText: requiredErrorText,
@@ -390,7 +465,7 @@ class TPBQuestionnaire extends React.Component {
     this.onCompleteComponent = this.onCompleteComponent.bind(this);
   }
   componentDidMount() {
-   // this.props.fetchParticipantPII(this.props.match.params.id);
+    // this.props.fetchParticipantPII(this.props.match.params.id);
     //disables hthe back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
   }
@@ -575,7 +650,7 @@ class TPBQuestionnaire extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
 
 export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(

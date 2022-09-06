@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import _ from "lodash";
 import { connect } from "react-redux";
-import { editParticipant ,editParticipantGermany} from "../../actions";
+import { editParticipant, editParticipantGermany } from "../../actions";
 import SurveyFinalPage from "./SurveyFinalPage";
 import "../style.css";
 // numbers instead of names
@@ -30,42 +30,42 @@ const firstCommonLineforQuestions =
   // " بین" +
   // minMaxTextTitile +
   "گزینه ‌ای که بیشترین مطابق با شما دارد را، انتخاب کنید." + markdownNewline;
-const isRequiredForAllQuestions = false;
+const isRequiredForAllQuestions = true;
 
 const likertChoicesForDTriad = [
   {
     value: "4",
     text: {
       default: "",
-      fa: "<nazlifont>" + "کاملا موافقم" + "</nazlifont>",
+      fa: "کاملا موافقم",
     },
   },
   {
     value: "3",
     text: {
       default: "",
-      fa: "<nazlifont>" + "نسبتا موافقم" + "</nazlifont>",
+      fa: "نسبتا موافقم",
     },
   },
   {
     value: "2",
     text: {
       default: "",
-      fa: "<nazlifont>" + "نه موافقم و نه مخالف" + "</nazlifont>",
+      fa: "نه موافقم و نه مخالف",
     },
   },
   {
     value: "1",
     text: {
       default: "",
-      fa: "<nazlifont>" + "نسبتا مخالفم" + "</nazlifont>",
+      fa: "نسبتا مخالفم",
     },
   },
   {
     value: "0",
     text: {
       default: "",
-      fa: "<nazlifont>" + "کاملا مخالفم" + "</nazlifont>",
+      fa: "کاملا مخالفم",
     },
   },
 ];
@@ -283,11 +283,6 @@ const json = {
             "در این بخش ۱۲ سوال ۵ گزینه‌ای برای شما نمایش داده می‌شود. " +
             markdownNewline +
             " لطفا " +
-            "<green>" +
-            // "<underlinemarkdown>" +
-            " با دقت" +
-            // "</underlinemarkdown>" +
-            "</green>" +
             " به آن‌ها پاسخ بدهید." +
             // markdownNewline +
             "</nazlifont>",
@@ -299,6 +294,60 @@ const json = {
       ],
     },
     ...auctionQuestionsShuffled[1],
+    {
+      name: "DataScieneFamiliarity", //#12
+      elements: [
+        {
+          type: "radiogroup",
+          name: "DataScieneFamiliarity",
+          title:
+            `با تشکر از شما، لطفا میزان آشنایی خود با
+            <green>
+             علم داده
+            (Data Science)
+            </green>
+            را مشخص کنید. `,
+          choices: [
+            {
+              value: "4",
+              text: {
+                default: "",
+                fa: "کاملا آشنا هستم",
+              },
+            },
+            {
+              value: "3",
+              text: {
+                default: "",
+                fa: "نسبتا آشنا هستم",
+              },
+            },
+            {
+              value: "2",
+              text: {
+                default: "",
+                fa: "به طور متوسط آشنا هستم",
+              },
+            },
+            {
+              value: "1",
+              text: {
+                default: "",
+                fa: "کم آشنا هستم",
+              },
+            },
+            {
+              value: "0",
+              text: {
+                default: "",
+                fa: "اصلا آشنا نیستم",
+              },
+            },
+          ],
+          isRequired: isRequiredForAllQuestions,
+        },
+      ],
+    },
   ],
   widthMode: "responsive",
   questionTitlePattern: "Title",
@@ -315,7 +364,7 @@ class DarkTriad extends React.Component {
     this.onCompleteComponent = this.onCompleteComponent.bind(this);
   }
   componentDidMount() {
-   // this.props.fetchParticipantPII(this.props.match.params.id);
+    // this.props.fetchParticipantPII(this.props.match.params.id);
     //disables hthe back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
   }
@@ -473,7 +522,7 @@ class DarkTriad extends React.Component {
         // console.log("endsurvey");
         sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
           ...sender.timestampsoptions[
-            sender.pages[sender.pages.length - 1].name
+          sender.pages[sender.pages.length - 1].name
           ],
           end: Date.now(),
         };
@@ -504,11 +553,11 @@ class DarkTriad extends React.Component {
       />
     ) : null;
     var onCompleteComponent = this.state.isCompleted ? (
-      this.props.nextPage["urlBeforeUserID"] ? (
+      typeof this.props.nextPage === "function" ? (
         <SurveyFinalPage
-          nextPage={this.props.nextPage["urlBeforeUserID"]}
+          nextPage={this.props.nextPage}
           userIDThisPage={this.getUserId()}
-          urlAfterUserIDthis={this.props.nextPage["urlAfterUserIDthis"]}
+          urlAfterUserIDthis={""}
         />
       ) : (
         <SurveyFinalPage
@@ -529,9 +578,9 @@ class DarkTriad extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
 
-export default connect(mapStateToProps, { editParticipant,editParticipantGermany })(
+export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(
   withRouter(DarkTriad)
 );

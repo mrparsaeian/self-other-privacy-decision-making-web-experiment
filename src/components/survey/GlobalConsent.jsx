@@ -1,13 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import * as Survey from "survey-react";
 import { Converter } from "showdown";
 import "survey-react/survey.css";
 import "../style.css";
-import { Link, withRouter } from "react-router-dom";
-import _ from "lodash";
+import { withRouter } from "react-router-dom";
+// import _ from "lodash";
 import { connect } from "react-redux";
-import { editParticipant,editParticipantGermany } from "../../actions";
+import { editParticipant, editParticipantGermany } from "../../actions";
 import SurveyFinalPage from "./SurveyFinalPage";
 
 Survey.JsonObject.metaData.addProperty("itemvalue", { name: "score:number" });
@@ -29,8 +29,8 @@ const json = {
   // progressBarType: "buttons",
   // showProgressBar: "top",
   title: {
-    default: "Details",
-    fa: "<nazlifont>" + "اطلاعات اولیه" + "</nazlifont>",
+    default: "",
+    fa: "",
   },
   // showProgressBar: "bottom",
   // showTimerPanel: "bottom",
@@ -38,7 +38,7 @@ const json = {
   // maxTimeToFinish: 10,
   // timeToAnswer: 0,
   // firstPageIsStarted: true,
-  logoPosition: "right",
+  // logoPosition: "right",
   pages: [
     {
       name: "taskConsentAgreement",
@@ -46,30 +46,26 @@ const json = {
         {
           type: "radiogroup",
           name: "taskConsentAgreement",
-          title:
-            "<nazlifont>" +
-            "- شرکت شما در این پژوهش کمک بزرگی در راستای توسعه علم خواهد کرد." +
+          title: "شرکت شما در این پژوهش کمک بزرگی در راستای توسعه علم خواهد کرد." +
             "<br />" +
             "- شرکت در این پژوهش کاملا داوطلبانه است و اجباری برای شرکت در این پژوهش نیست." +
             "<br />" +
-            "- حتی پس از موافقت با شرکت در پژوهش، هر زمان که بخواهید، می توانید از سیستم خارج شوید." +
+            "- حتی پس از موافقت با شرکت در پژوهش، هر زمان که بخواهید، می‌توانید از سیستم خارج شوید." +
             "<br />" +
             "- این پژوهش هیچ گونه آسیبی در پی نخواهد داشت." +
             "<br />" +
-            "- اطلاعات شما در این پژوهش به صورت محرمانه نگه داشته خواهد شد و فقط نتایج کلی گزارش می شود." +
+            "- اطلاعات شما در این پژوهش به صورت محرمانه نگه داشته خواهد شد و فقط نتایج کلی گزارش می‌شود." +
             "<br />" +
-            "- در صورت بروز مشکل می توانید با مسئول پژوهش، آقای محمد رسول پارسائيان با شماره تلفن ۰۹۳۶۵۱۵۶۸۳۰ تماس حاصل نمایید." +
-            "</nazlifont>",
+            "- در صورت بروز مشکل می‌توانید با مسئول پژوهش، آقای محمد رسول پارسائيان به شماره ۰۹۳۶۵۱۵۶۸۳۰ پیام دهید یا تماس حاصل نمایید."
+          ,
           choices: [
-            "<nazlifont>" +
-              " اینجانب موارد فوق الذکر را خواندم و براساس آن رضایت آگاهانه خود را برای شرکت در این پژوهش اعلام می کنم." +
-              "</nazlifont>",
+            " اینجانب موارد فوق الذکر را خواندم و بر اساس آن رضایت آگاهانه خود را برای شرکت در این پژوهش اعلام می‌کنم."
+            ,
           ],
           isRequired: true,
           requiredErrorText:
-            "<nazlifont>" +
-            "ادامه آزمایش نیاز به علامت زدن گزینه زیر و تایید شما دارد." +
-            "</nazlifont>",
+            "ادامه آزمایش نیاز به علامت زدن گزینه زیر و تایید شما دارد."
+          ,
         },
       ],
     },
@@ -79,8 +75,8 @@ const json = {
   requiredText: "",
   // questionsOnPageMode: "questionPerPage",
   // showTimerPanel: "top",
-  completeText: "بعدی",
-  showTitle: false,
+  completeText: "تایید",
+  // showTitle: false,
   // cookieName: "informationprivacycoockie11",
   // pageNextText:  "<nazlifont>" + "تایید" + "</nazlifont>",
   pageNextText: "تایید",
@@ -94,7 +90,7 @@ class GlobalConsent extends React.Component {
   }
 
   componentDidMount() {
-   // this.props.fetchParticipantPII(this.props.match.params.id);
+    // this.props.fetchParticipantPII(this.props.match.params.id);
     //disables hthe back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
   }
@@ -115,8 +111,10 @@ class GlobalConsent extends React.Component {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + " " + time;
     survey.data = {
-      participantprofile: { ...survey.data },
+      GlobalConsent: { ...survey.data },
       submittime: dateTime,
+      timestampsforoptionchange: survey.timestampsoptions,
+
     };
     this.props.editParticipant(this.props.match.params.id, {
       demographic: { ...survey.data },
@@ -139,19 +137,116 @@ class GlobalConsent extends React.Component {
       // set html
       options.html = str;
     });
+    model.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+      classes.mainRoot += " sv_qstn2";
+      classes.root = "sq-root";
+      classes.title += " sq-title";
+      // classes.footer = "sv_qstn2";
+
+      // console.dir(classes);
+      // if (options.question.isRequired) {
+      //   classes.title += " sq-title-required";
+      //   classes.root += " sq-root-required";
+      // }
+      if (options.question.getType() === "checkbox") {
+        classes.root += " sq-root-cb";
+      }
+    });
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -166,7 +261,7 @@ class GlobalConsent extends React.Component {
         onComplete={this.onCompleteComponent}
         onCurrentPageChanged={timerCallback()}
         // onUpdateQuestionCssClasses={this.onUpdateQuestionCssClasses}
-        applyTheme="defaul"
+        applyTheme="default"
       />
     ) : null;
     var onCompleteComponent = this.state.isCompleted ? (
@@ -183,9 +278,9 @@ class GlobalConsent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    participant: state.participant,
+
   };
 };
-export default connect(mapStateToProps, { editParticipant,editParticipantGermany })(
+export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(
   withRouter(GlobalConsent)
 );

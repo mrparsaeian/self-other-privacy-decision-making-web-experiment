@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b4ab4147.css",
+    "main.js": "/static/js/main.edace52d.js",
+    "static/media/Nazli.woff2": "/static/media/Nazli.c8105aa212399f5829ea.woff2",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.b4ab4147.css",
+    "static/js/main.edace52d.js"
+  ]
+}

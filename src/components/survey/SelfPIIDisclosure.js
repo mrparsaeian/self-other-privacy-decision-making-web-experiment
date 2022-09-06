@@ -8,7 +8,7 @@ import "survey-react/survey.css";
 // import 'inputmask/dist/inputmask/phone-codes/phone';
 // import * as widgets from 'surveyjs-widgets';
 // import "jquery.inputmask"
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { editParticipant, editParticipantGermany } from "../../actions";
@@ -59,7 +59,7 @@ const selfPIIDisclosuresUnshuffled = [
         name: "selfPIIDisclosureMultiText",
         title: {
           default: "Please enter your mobile phone number and email address.",
-          fa: "لطفا جهت کمک به کسب نتایج علمی غنی‌تر، مشخصات خود را وارد کنید.",
+          fa: "لطفا مشخصات خود را وارد کنید.",
         },
         items: [
           {
@@ -144,7 +144,7 @@ class selfPIIDisclosure extends React.Component {
   // }
 
   componentDidMount() {
-   // this.props.fetchParticipantPII(this.props.match.params.id);
+    // this.props.fetchParticipantPII(this.props.match.params.id);
     //disables hthe back button
     window.dispatchEvent(new CustomEvent("navigationhandler"));
   }
@@ -167,6 +167,8 @@ class selfPIIDisclosure extends React.Component {
     survey.data = {
       selfPIIDisclosureData: { ...survey.data },
       submittime: dateTime,
+      timestampsforoptionchange: survey.timestampsoptions,
+
     };
     this.props.editParticipant(this.props.match.params.id, {
       selfPIIDisclosure: { ...survey.data },
@@ -192,19 +194,116 @@ class selfPIIDisclosure extends React.Component {
       // set html
       options.html = str;
     });
+    model.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+      classes.mainRoot += " sv_qstn2";
+      classes.root = "sq-root";
+      classes.title += " sq-title";
+      // classes.footer = "sv_qstn2";
+
+      // console.dir(classes);
+      // if (options.question.isRequired) {
+      //   classes.title += " sq-title-required";
+      //   classes.root += " sq-root-required";
+      // }
+      if (options.question.getType() === "checkbox") {
+        classes.root += " sq-root-cb";
+      }
+    });
     function timerCallback() {
       var page = model.currentPage;
       if (!page) return;
-      // var valueName = "submittime" + model.pages.indexOf(page);
       var valueName = "submittime" + page;
       var seconds = model.getValue(valueName);
       if (seconds == null) seconds = 0;
       else seconds++;
       model.setValue(valueName, seconds);
     }
+    if (!model.timestampsoptions) {
+      model.timestampsoptions = {};
+    }
+    model.onAfterRenderPage.add(function (sender, options) {
+      if (options.page !== undefined && options.page !== null) {
+        sender.timestampsoptions[options.page.name] = {};
+        console.log("start");
+        sender.timestampsoptions[options.page.name] = {
+          ...sender.timestampsoptions[options.page.name],
+          start: Date.now(),
+        };
+        console.log("pageisstarted:", options.page.name);
+      }
+      console.log("changesrenderpage", options.page);
+    });
+    model.onAfterRenderSurvey.add(function (sender, options) {
+      if (sender.pages[0]) {
+        // if (sender.timestampsoptions[sender.pages[0].name] === undefined) {
+        //   sender.timestampsoptions[sender.pages[0].name] = {};
+        // }
 
-    model.onCurrentPageChanged.add(function () {
+        console.log(
+          "startsurvey",
+          sender.pages[0].name,
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+        sender.timestampsoptions[sender.pages[0].name] = {
+          ...sender.timestampsoptions[sender.pages[0].name],
+          startsurvey: Date.now(),
+        };
+        console.log(
+          "surveypageisstarted:",
+          sender.timestampsoptions[sender.pages[0].name]
+        );
+      }
+      console.log("changessurvey", sender.pages[0]);
+    });
+    model.onCurrentPageChanged.add(function (sender, options) {
+      if (
+        options.oldCurrentPage !== undefined &&
+        options.oldCurrentPage !== null
+      ) {
+        console.log("options.oldCurrentPage.name", options.oldCurrentPage.name);
+
+        // if (sender.timestampsoptions[options.oldCurrentPage.name]) {
+        //   sender.timestampsoptions[options.oldCurrentPage.name] = {};
+        // }
+
+        console.log("end");
+        sender.timestampsoptions[options.oldCurrentPage.name] = {
+          ...sender.timestampsoptions[options.oldCurrentPage.name],
+          end: Date.now(),
+        };
+        console.log("pageisended:", options.oldCurrentPage.name);
+      }
+      console.log("changespageend", options.oldCurrentPage);
       timerCallback();
+    });
+    model.onComplete.add(function (sender, options) {
+      if (sender.pages[sender.pages.length - 1]) {
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] =
+        // sender.timestampsoptions[sender.pages[sender.pages.length - 1].name]
+        //   ? {
+        //       ...sender.timestampsoptions[
+        //         sender.pages[sender.pages.length - 1].name
+        //       ],
+        //     }
+        //   : {};
+
+        console.log("endsurvey");
+        sender.timestampsoptions[sender.pages[sender.pages.length - 1].name] = {
+          ...sender.timestampsoptions[
+          sender.pages[sender.pages.length - 1].name
+          ],
+          end: Date.now(),
+        };
+        console.log(
+          "pageisendedcompletes survey:",
+          sender.pages[sender.pages.length - 1].name
+        );
+      }
+      console.log(
+        "changescompletesurvey",
+        sender.pages[sender.pages.length - 1]
+      );
     });
     timerCallback();
     this.timerId = window.setInterval(function () {
@@ -230,7 +329,7 @@ class selfPIIDisclosure extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { participant: state.participant };
+  return {};
 };
 
 export default connect(mapStateToProps, { editParticipant, editParticipantGermany })(

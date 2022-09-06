@@ -16,7 +16,7 @@
   border-collapse: unset;
   border-inline-end: unset;
   border-inline-start: unset;
-  border-radius: unset;
+  borderRadius: unset;
   border-spacing: unset;
   border: unset;
   bottom: unset;
@@ -64,8 +64,8 @@
   font-feature-settings: unset;
   font-kerning: unset;
   font-language-override: unset;
-  font-size-adjust: unset;
-  font-size: unset;
+  fontSize-adjust: unset;
+  fontSize: unset;
   font-stretch: unset;
   font-style: oblique;
   font-synthesis: unset;
@@ -158,11 +158,11 @@
   stroke: unset;
   tab-size: unset;
   table-layout: unset;
-  text-align-last: unset;
-  text-align: unset;
+  textAlign-last: unset;
+  textAlign: unset;
   text-anchor: unset;
   text-combine-upright: unset;
-  text-decoration: unset;
+  textDecoration: unset;
   text-emphasis-position: unset;
   text-emphasis: unset;
   text-indent: unset;
